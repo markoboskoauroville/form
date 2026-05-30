@@ -19,7 +19,6 @@
 }
 body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-weight:300;min-height:100vh}
 
-/* ── PAGE WRAPPER — centered block ── */
 .page{
   max-width:var(--max);
   width:100%;
@@ -27,7 +26,6 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
   padding:0 2rem;
 }
 
-/* ── HERO — same width as form, image fills it ── */
 .hero{
   width:100%;
   aspect-ratio:1587/809;
@@ -45,7 +43,6 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
   background-image:url('https://i.ibb.co/rKHmDXSb/form-bgd3.png');
   background-size:cover;background-position:center 40%;
 }
-/* TOP gradient: transparent → dark bottom */
 .hero::after{
   content:'';position:absolute;inset:0;
   background:linear-gradient(to bottom,
@@ -66,7 +63,6 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
   text-shadow:0 2px 24px rgba(0,0,0,.6)
 }
 
-/* ── PILLS ── */
 .pills{
   display:flex;flex-wrap:wrap;gap:8px;
   padding:1.2rem 0;border-bottom:.5px solid var(--border)
@@ -78,7 +74,6 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
   color:rgba(255,255,255,.82);letter-spacing:.01em
 }
 
-/* ── FORM ── */
 .form-outer{
   width:100%;
   padding:2.5rem 0 3rem;
@@ -145,7 +140,6 @@ textarea{resize:vertical;min-height:90px;line-height:1.65}
 }
 .divider{border:none;border-top:.5px solid var(--border);margin:.4rem 0 0}
 
-/* ── BOTTOM IMAGE — same width as form, mirrored gradient ── */
 .bottom-img-wrap{
   width:100%;margin-top:0;line-height:0;
   position:relative;overflow:hidden;
@@ -153,7 +147,6 @@ textarea{resize:vertical;min-height:90px;line-height:1.65}
   min-height:180px;
   border-radius:10px 10px 0 0;
 }
-/* BOTTOM gradient: dark top → transparent bottom (mirror of hero) */
 .bottom-img-wrap::before{
   content:'';position:absolute;inset:0;z-index:1;pointer-events:none;
   background:linear-gradient(to bottom,
@@ -169,23 +162,12 @@ textarea{resize:vertical;min-height:90px;line-height:1.65}
   display:block;
 }
 
-/* ── VERSION BADGE ── */
-.version{
-  position:fixed;top:10px;right:12px;z-index:999;
-  font-family:'Outfit',sans-serif;font-size:10px;font-weight:600;
-  letter-spacing:.1em;color:rgba(255,255,255,.35);
-  background:rgba(255,255,255,.06);border:.5px solid rgba(255,255,255,.12);
-  border-radius:20px;padding:3px 9px;pointer-events:none;
-}
-
 @media(max-width:500px){
   .page{padding:0 1.2rem}
 }
 </style>
 </head>
 <body>
-
-<div class="version">v2.0</div>
 
 <div class="page">
 
@@ -293,15 +275,13 @@ textarea{resize:vertical;min-height:90px;line-height:1.65}
   </div>
 </div>
 
-<!-- ── BOTTOM IMAGE ── -->
 <div class="bottom-img-wrap">
   <img src="https://i.ibb.co/cKJyFg9F/form-bgd3b.png" alt="Tijelovo na Moj Način" class="bottom-img">
 </div>
 
-</div><!-- end .page -->
+</div>
 
 <script>
-// ── Radio highlight ──────────────────────────────────────────
 document.querySelectorAll('.radio-opt').forEach(function(opt) {
   opt.addEventListener('click', function() {
     var name = this.querySelector('input[type=radio]').name;
@@ -312,7 +292,6 @@ document.querySelectorAll('.radio-opt').forEach(function(opt) {
   });
 });
 
-// ── Form submit via fetch no-cors ────────────────────────────
 var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzXIWnr4P3sdVUQdoY2Nmg3qiTIQaM-HChmjByKHatBkgVRqiqeJwRkRvaOqpX_vvrb/exec";
 
 document.getElementById('theForm').addEventListener('submit', function(e) {
@@ -356,12 +335,8 @@ document.getElementById('theForm').addEventListener('submit', function(e) {
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     body: params.toString()
   })
-  .then(function() {
-    showSuccess();
-  })
-  .catch(function() {
-    showSuccess();
-  });
+  .then(function() { showSuccess(); })
+  .catch(function() { showSuccess(); });
 });
 
 function showSuccess() {
@@ -370,7 +345,6 @@ function showSuccess() {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// ── Try to load hero image, keep fallback if it fails ────────
 (function() {
   var img = new Image();
   img.onerror = function() {
