@@ -185,7 +185,7 @@ textarea{resize:vertical;min-height:90px;line-height:1.65}
 </head>
 <body>
 
-<div class="version">v1.0</div>
+<div class="version">v2.0</div>
 
 <div class="page">
 
@@ -312,8 +312,8 @@ document.querySelectorAll('.radio-opt').forEach(function(opt) {
   });
 });
 
-// ── Form submit via hidden iframe (avoids CORS) ──────────────
-var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxLJyuYMWKw5oVisX9h19LzJIvjaX5uDB_E08rM3_KuznFs8dGZUlxRn-bN7lav3suH/exec";
+// ── Form submit via fetch no-cors ────────────────────────────
+var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzXIWnr4P3sdVUQdoY2Nmg3qiTIQaM-HChmjByKHatBkgVRqiqeJwRkRvaOqpX_vvrb/exec";
 
 document.getElementById('theForm').addEventListener('submit', function(e) {
   e.preventDefault();
@@ -348,43 +348,20 @@ document.getElementById('theForm').addEventListener('submit', function(e) {
     note:     document.getElementById('note').value.trim() || '—'
   };
 
-  // Hidden iframe POST — no CORS preflight
-  var iframe = document.createElement('iframe');
-  iframe.name = 'hidden_iframe_' + Date.now();
-  iframe.style.display = 'none';
-  document.body.appendChild(iframe);
+  var params = new URLSearchParams(fields);
 
-  var form = document.createElement('form');
-  form.method = 'POST';
-  form.action = SCRIPT_URL;
-  form.target = iframe.name;
-  form.style.display = 'none';
-
-  Object.keys(fields).forEach(function(key) {
-    var input = document.createElement('input');
-    input.type  = 'hidden';
-    input.name  = key;
-    input.value = fields[key];
-    form.appendChild(input);
-  });
-
-  document.body.appendChild(form);
-
-  var done = false;
-  function finish() {
-    if (done) return;
-    done = true;
+  fetch(SCRIPT_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: params.toString()
+  })
+  .then(function() {
     showSuccess();
-    setTimeout(function() {
-      if (form.parentNode) document.body.removeChild(form);
-      if (iframe.parentNode) document.body.removeChild(iframe);
-    }, 500);
-  }
-
-  iframe.onload = finish;
-  setTimeout(finish, 4000); // fallback
-
-  form.submit();
+  })
+  .catch(function() {
+    showSuccess();
+  });
 });
 
 function showSuccess() {
@@ -393,14 +370,10 @@ function showSuccess() {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// ── Try to load Drive image, keep fallback if it fails ───────
+// ── Try to load hero image, keep fallback if it fails ────────
 (function() {
   var img = new Image();
-  img.onload = function() {
-    // image loaded fine — already shown via CSS background-image
-  };
   img.onerror = function() {
-    // Drive blocked it — hide the broken layer, fallback gradient shows
     document.querySelector('.hero-img').style.display = 'none';
   };
   img.src = 'https://i.ibb.co/rKHmDXSb/form-bgd3.png';
