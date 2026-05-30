@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prijava – Tijelovo na Moj Način</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --gold:#e8975a;
+  --gold-dark:#c96d30;
+  --bg:#0c1018;
+  --surface:rgba(255,255,255,0.04);
+  --border:rgba(255,255,255,0.12);
+  --text:#e6e1d4;
+  --muted:rgba(255,255,255,0.5);
+  --max:780px;
+}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-weight:300;min-height:100vh}
+
+/* ── PAGE WRAPPER — centered block ── */
+.page{
+  max-width:var(--max);
+  width:100%;
+  margin:0 auto;
+  padding:0 2rem;
+}
+
+/* ── HERO — same width as form, image fills it ── */
+.hero{
+  width:100%;
+  aspect-ratio:1587/809;
+  min-height:180px;
+  position:relative;overflow:hidden;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  border-radius:0 0 10px 10px;
+}
+.hero-fallback{
+  position:absolute;inset:0;
+  background:linear-gradient(160deg,#0a1628 0%,#112240 20%,#1a3a5c 40%,#2e6a8a 60%,#4a9db5 80%,#6dbfd4 100%);
+}
+.hero-img{
+  position:absolute;inset:0;width:100%;height:100%;
+  background-image:url('https://i.ibb.co/rKHmDXSb/form-bgd3.png');
+  background-size:cover;background-position:center 40%;
+}
+/* TOP gradient: transparent → dark bottom */
+.hero::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(to bottom,
+    rgba(12,16,24,0) 0%,
+    rgba(12,16,24,0.25) 50%,
+    rgba(12,16,24,0.95) 100%
+  );
+  z-index:2;
+}
+.hero-content{position:relative;z-index:3;padding:0 1.5rem 1.8rem}
+.hero-eyebrow{
+  font-family:'Outfit',sans-serif;font-size:11px;font-weight:500;
+  letter-spacing:.35em;text-transform:uppercase;color:var(--gold);margin-bottom:.5rem
+}
+.hero h1{
+  font-family:'Outfit',sans-serif;font-size:clamp(1.8rem,5vw,3rem);
+  font-weight:700;letter-spacing:-.01em;color:#fff;line-height:1.05;
+  text-shadow:0 2px 24px rgba(0,0,0,.6)
+}
+
+/* ── PILLS ── */
+.pills{
+  display:flex;flex-wrap:wrap;gap:8px;
+  padding:1.2rem 0;border-bottom:.5px solid var(--border)
+}
+.pill{
+  display:flex;align-items:center;gap:6px;background:rgba(232,151,90,0.1);
+  border:.5px solid rgba(232,151,90,0.3);border-radius:100px;padding:5px 13px;
+  font-size:12px;font-family:'Outfit',sans-serif;font-weight:400;
+  color:rgba(255,255,255,.82);letter-spacing:.01em
+}
+
+/* ── FORM ── */
+.form-outer{
+  width:100%;
+  padding:2.5rem 0 3rem;
+}
+.section-label{
+  font-family:'Outfit',sans-serif;font-size:10px;font-weight:600;letter-spacing:.28em;
+  text-transform:uppercase;color:var(--gold);margin-bottom:1.1rem;margin-top:2rem;
+  padding-bottom:.5rem;border-bottom:.5px solid rgba(232,151,90,.2)
+}
+.section-label:first-child{margin-top:0}
+.field{margin-bottom:1.15rem}
+label.field-label{
+  display:block;font-family:'Outfit',sans-serif;font-size:11px;font-weight:500;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:7px
+}
+label.field-label .req{color:var(--gold);margin-left:2px}
+input[type=text],input[type=email],input[type=tel],select,textarea{
+  width:100%;background:var(--surface);border:.5px solid var(--border);border-radius:7px;
+  padding:13px 16px;font-size:14px;font-family:'DM Sans',sans-serif;font-weight:300;
+  color:var(--text);outline:none;transition:border-color .2s,background .2s;letter-spacing:.01em
+}
+input:focus,select:focus,textarea:focus{border-color:rgba(232,151,90,.65);background:rgba(232,151,90,.05)}
+input::placeholder,textarea::placeholder{color:rgba(255,255,255,.2)}
+select{
+  appearance:none;cursor:pointer;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='8' viewBox='0 0 14 8'%3E%3Cpath d='M1 1l6 6 6-6' stroke='%23e8975a' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 14px center
+}
+select option{background:#1a1f2e;color:var(--text)}
+textarea{resize:vertical;min-height:90px;line-height:1.65}
+.radio-group{display:flex;flex-direction:column;gap:7px}
+.radio-opt{
+  display:flex;align-items:center;gap:11px;background:var(--surface);
+  border:.5px solid var(--border);border-radius:7px;padding:12px 15px;cursor:pointer;
+  transition:border-color .18s,background .18s;font-family:'DM Sans',sans-serif;
+  font-size:14px;font-weight:300;color:rgba(255,255,255,.78);user-select:none
+}
+.radio-opt:hover{border-color:rgba(232,151,90,.38);background:rgba(232,151,90,.05)}
+.radio-opt.sel{border-color:rgba(232,151,90,.7);background:rgba(232,151,90,.08);color:var(--text)}
+.radio-opt input[type=radio]{accent-color:var(--gold);width:15px;height:15px;flex-shrink:0}
+.submit-btn{
+  width:100%;margin-top:1.8rem;padding:16px;
+  background:linear-gradient(135deg,var(--gold) 0%,var(--gold-dark) 100%);
+  border:none;border-radius:8px;color:#fff;font-family:'Outfit',sans-serif;
+  font-size:13px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;
+  cursor:pointer;transition:opacity .2s,transform .12s
+}
+.submit-btn:hover{opacity:.87;transform:translateY(-1px)}
+.submit-btn:active{transform:scale(.99)}
+.submit-btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.footer-note{
+  text-align:left;font-size:11.5px;color:rgba(255,255,255,.28);
+  margin-top:1.2rem;line-height:1.8
+}
+.footer-note a{color:var(--gold);text-decoration:none}
+.success{display:none;text-align:left;padding:4rem 2rem}
+.success-icon{font-size:3rem;color:var(--gold);margin-bottom:1.2rem}
+.success h2{font-family:'Outfit',sans-serif;font-size:1.6rem;font-weight:700;margin-bottom:.7rem;color:#fff}
+.success p{font-size:14px;color:var(--muted);line-height:1.8;font-family:'DM Sans',sans-serif}
+.err-msg{
+  display:none;background:rgba(220,60,60,.12);border:.5px solid rgba(220,60,60,.4);
+  color:#ff7070;border-radius:6px;padding:10px 14px;font-size:13px;margin-top:1rem;
+  font-family:'DM Sans',sans-serif;line-height:1.6
+}
+.divider{border:none;border-top:.5px solid var(--border);margin:.4rem 0 0}
+
+/* ── BOTTOM IMAGE — same width as form, mirrored gradient ── */
+.bottom-img-wrap{
+  width:100%;margin-top:0;line-height:0;
+  position:relative;overflow:hidden;
+  aspect-ratio:1295/662;
+  min-height:180px;
+  border-radius:10px 10px 0 0;
+}
+/* BOTTOM gradient: dark top → transparent bottom (mirror of hero) */
+.bottom-img-wrap::before{
+  content:'';position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(to bottom,
+    rgba(12,16,24,0.95) 0%,
+    rgba(12,16,24,0.25) 50%,
+    rgba(12,16,24,0) 100%
+  );
+}
+.bottom-img{
+  position:absolute;inset:0;
+  width:100%;height:100%;
+  object-fit:cover;object-position:center 50%;
+  display:block;
+}
+
+/* ── VERSION BADGE ── */
+.version{
+  position:fixed;top:10px;right:12px;z-index:999;
+  font-family:'Outfit',sans-serif;font-size:10px;font-weight:600;
+  letter-spacing:.1em;color:rgba(255,255,255,.35);
+  background:rgba(255,255,255,.06);border:.5px solid rgba(255,255,255,.12);
+  border-radius:20px;padding:3px 9px;pointer-events:none;
+}
+
+@media(max-width:500px){
+  .page{padding:0 1.2rem}
+}
+</style>
+</head>
+<body>
+
+<div class="version">v1.0</div>
+
+<div class="page">
+
+<div class="hero">
+  <div class="hero-fallback"></div>
+  <div class="hero-img"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Prijava za događaj</p>
+    <h1>Tijelovo na Moj Način</h1>
+  </div>
+</div>
+
+<div class="pills">
+  <div class="pill">📅 Četvrtak, 4. lipnja 2026.</div>
+  <div class="pill">⏰ 9:00 – 21:00</div>
+  <div class="pill">📍 Rajska plaža, Otok Vir</div>
+  <div class="pill">💶 20–30 EUR</div>
+  <div class="pill">🐶 Djeca i kućni ljubimci dobrodošli</div>
+</div>
+
+<div class="form-outer">
+  <form id="theForm">
+
+    <div class="section-label">Vaši podaci</div>
+
+    <div class="field">
+      <label class="field-label">Ime i prezime <span class="req">*</span></label>
+      <input type="text" id="name" placeholder="npr. Ana Horvat" required>
+    </div>
+    <div class="field">
+      <label class="field-label">E-mail adresa <span class="req">*</span></label>
+      <input type="email" id="email" placeholder="vas@email.com" required>
+    </div>
+    <div class="field">
+      <label class="field-label">Broj mobitela <span class="req">*</span></label>
+      <input type="tel" id="phone" placeholder="091 123 4567" required>
+    </div>
+
+    <hr class="divider">
+    <div class="section-label">Detalji dolaska</div>
+
+    <div class="field">
+      <label class="field-label">Koliko osoba dolazi? <span class="req">*</span></label>
+      <div class="radio-group">
+        <label class="radio-opt"><input type="radio" name="people" value="Samo ja"> Samo ja</label>
+        <label class="radio-opt"><input type="radio" name="people" value="2 osobe"> 2 osobe</label>
+        <label class="radio-opt"><input type="radio" name="people" value="3 osobe"> 3 osobe</label>
+        <label class="radio-opt"><input type="radio" name="people" value="4 osobe"> 4 osobe</label>
+        <label class="radio-opt"><input type="radio" name="people" value="5+"> 5 ili više osoba</label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="field-label">Dolazite li s djecom?</label>
+      <div class="radio-group">
+        <label class="radio-opt"><input type="radio" name="children" value="Ne"> Ne</label>
+        <label class="radio-opt"><input type="radio" name="children" value="1 dijete"> Da – s jednim djetetom</label>
+        <label class="radio-opt"><input type="radio" name="children" value="2 djece"> Da – s dvoje djece</label>
+        <label class="radio-opt"><input type="radio" name="children" value="3+"> Da – s troje ili više djece</label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="field-label">Donosite li kućnog ljubimca?</label>
+      <div class="radio-group">
+        <label class="radio-opt"><input type="radio" name="pet" value="Ne"> Ne</label>
+        <label class="radio-opt"><input type="radio" name="pet" value="Da"> Da</label>
+      </div>
+    </div>
+
+    <hr class="divider">
+    <div class="section-label">Još nešto</div>
+
+    <div class="field">
+      <label class="field-label">Kako ste saznali za događaj?</label>
+      <select id="source">
+        <option value="" disabled selected>Odaberite…</option>
+        <option>Facebook / Instagram</option>
+        <option>Od prijatelja ili poznanika</option>
+        <option>Osobno poznanstvo s organizatorom</option>
+        <option>Plakat</option>
+        <option>Drugo</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label class="field-label">Poruka organizatoru (neobavezno)</label>
+      <textarea id="note" placeholder="Imate li posebnih napomena, pitanja ili želja?"></textarea>
+    </div>
+
+    <div class="err-msg" id="errMsg"></div>
+
+    <button type="submit" class="submit-btn" id="submitBtn">Pošalji prijavu</button>
+    <p class="footer-note">
+      Točna lokacija šalje se nakon prijave.<br>
+      Info: <a href="tel:0919203123">091 9203123</a> &middot;
+      <a href="mailto:biljana.sare1@gmail.com">biljana.sare1@gmail.com</a>
+    </p>
+  </form>
+
+  <div class="success" id="successBox">
+    <div class="success-icon">✦</div>
+    <h2>Prijava primljena!</h2>
+    <p>Hvala! Uskoro ćemo vam poslati točnu lokaciju.<br>Vidimo se 4. lipnja na Otoku Viru! 🌊</p>
+  </div>
+</div>
+
+<!-- ── BOTTOM IMAGE ── -->
+<div class="bottom-img-wrap">
+  <img src="https://i.ibb.co/cKJyFg9F/form-bgd3b.png" alt="Tijelovo na Moj Način" class="bottom-img">
+</div>
+
+</div><!-- end .page -->
+
+<script>
+// ── Radio highlight ──────────────────────────────────────────
+document.querySelectorAll('.radio-opt').forEach(function(opt) {
+  opt.addEventListener('click', function() {
+    var name = this.querySelector('input[type=radio]').name;
+    document.querySelectorAll('.radio-opt input[name="' + name + '"]').forEach(function(r) {
+      r.closest('.radio-opt').classList.remove('sel');
+    });
+    this.classList.add('sel');
+  });
+});
+
+// ── Form submit via hidden iframe (avoids CORS) ──────────────
+var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxLJyuYMWKw5oVisX9h19LzJIvjaX5uDB_E08rM3_KuznFs8dGZUlxRn-bN7lav3suH/exec";
+
+document.getElementById('theForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  var name   = document.getElementById('name').value.trim();
+  var email  = document.getElementById('email').value.trim();
+  var phone  = document.getElementById('phone').value.trim();
+  var people = document.querySelector('input[name="people"]:checked');
+  var errMsg = document.getElementById('errMsg');
+
+  errMsg.style.display = 'none';
+
+  if (!name || !email || !phone || !people) {
+    errMsg.textContent = 'Molimo ispunite sva obavezna polja označena zvjezdicom (*).';
+    errMsg.style.display = 'block';
+    errMsg.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    return;
+  }
+
+  var btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  btn.textContent = 'Šaljem…';
+
+  var fields = {
+    name:     name,
+    email:    email,
+    phone:    phone,
+    people:   people.value,
+    children: (document.querySelector('input[name="children"]:checked') || {value:'—'}).value,
+    pet:      (document.querySelector('input[name="pet"]:checked') || {value:'—'}).value,
+    source:   document.getElementById('source').value || '—',
+    note:     document.getElementById('note').value.trim() || '—'
+  };
+
+  // Hidden iframe POST — no CORS preflight
+  var iframe = document.createElement('iframe');
+  iframe.name = 'hidden_iframe_' + Date.now();
+  iframe.style.display = 'none';
+  document.body.appendChild(iframe);
+
+  var form = document.createElement('form');
+  form.method = 'POST';
+  form.action = SCRIPT_URL;
+  form.target = iframe.name;
+  form.style.display = 'none';
+
+  Object.keys(fields).forEach(function(key) {
+    var input = document.createElement('input');
+    input.type  = 'hidden';
+    input.name  = key;
+    input.value = fields[key];
+    form.appendChild(input);
+  });
+
+  document.body.appendChild(form);
+
+  var done = false;
+  function finish() {
+    if (done) return;
+    done = true;
+    showSuccess();
+    setTimeout(function() {
+      if (form.parentNode) document.body.removeChild(form);
+      if (iframe.parentNode) document.body.removeChild(iframe);
+    }, 500);
+  }
+
+  iframe.onload = finish;
+  setTimeout(finish, 4000); // fallback
+
+  form.submit();
+});
+
+function showSuccess() {
+  document.getElementById('theForm').style.display = 'none';
+  document.getElementById('successBox').style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ── Try to load Drive image, keep fallback if it fails ───────
+(function() {
+  var img = new Image();
+  img.onload = function() {
+    // image loaded fine — already shown via CSS background-image
+  };
+  img.onerror = function() {
+    // Drive blocked it — hide the broken layer, fallback gradient shows
+    document.querySelector('.hero-img').style.display = 'none';
+  };
+  img.src = 'https://i.ibb.co/rKHmDXSb/form-bgd3.png';
+})();
+</script>
+</body>
+</html>
