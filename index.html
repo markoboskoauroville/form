@@ -68,6 +68,22 @@ body{background:radial-gradient(ellipse at 50% -10%,#14302a 0%,#0a1411 55%,#070f
   color:rgba(255,255,255,.82);letter-spacing:.01em
 }
 
+/* WELCOME */
+.welcome{padding:1.8rem 0 .4rem}
+.welcome p{font-size:14.5px;line-height:1.85;color:rgba(240,230,207,.78);margin-bottom:.9rem;letter-spacing:.01em}
+.welcome-open{font-family:'Outfit',sans-serif;font-size:17px !important;font-weight:500;color:var(--gold) !important;letter-spacing:.02em !important}
+.welcome-close{font-style:italic;color:#7fd0ea !important;margin-bottom:0 !important}
+
+/* FACILITATORS */
+.fac-card{display:flex;gap:1.2rem;align-items:flex-start;background:var(--surface);border:.5px solid var(--border);border-radius:14px;padding:1.3rem;margin-bottom:1.1rem}
+.fac-img{width:92px;height:92px;border-radius:50%;object-fit:cover;flex-shrink:0;border:2px solid var(--gold)}
+.fac-name{font-family:'Outfit',sans-serif;font-size:16px;font-weight:600;color:var(--gold);margin-bottom:2px}
+.fac-real{font-weight:400;color:var(--muted);font-size:14px}
+.fac-role{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#7fd0ea;margin-bottom:.6rem}
+.fac-bio{font-size:13.5px;line-height:1.75;color:rgba(240,230,207,.75)}
+.fac-bio a{color:#7fd0ea}
+@media(max-width:560px){.fac-card{flex-direction:column;align-items:center;text-align:center}}
+
 /* TABS */
 .tab-bar{
   display:flex;gap:0;margin:2rem 0 0;
@@ -259,7 +275,17 @@ textarea{resize:vertical;min-height:90px;line-height:1.65}
   <div class="pill">📍 Dvorana na Ravnicama, Zadar</div>
   <div class="pill">🗓 11–12. srpnja 2026.</div>
   <div class="pill">💶 80 – 120 EUR</div>
-  <div class="pill">🎵 DJ Mantra · Nina Kraljić · Black Pen</div>
+  <div class="pill">🎵 Black Pen (Biljana Šare) · DJ Mantra (Marko Boško) · Norya (Nina Kraljić)</div>
+</div>
+
+<!-- WELCOME -->
+<div class="welcome">
+  <p class="welcome-open">Dobrodošla i dobrodošao na ovaj događaj.</p>
+  <p>Ples Duše je susret bez riječi. Tijelo govori. Um se odmara.</p>
+  <p>Dva dana u Zadru. Pokret, ritam i glas. Otvaramo Medicine Wheel, krug koji nas drži. Black Pen (Biljana Šare) te vodi u ples. DJ Mantra (Marko Boško) donosi glazbu koja se kreće u valovima, od tihog pulsa zemlje do ekstaze i natrag u mir. Norya (Nina Kraljić) te glasom i zvukom vraća sebi.</p>
+  <p>Što dobivaš? Cjelodnevno vođeno putovanje. Anđeoski i šamanski sound healing. Slobodan ples bez koreografije i bez ocjenjivanja. More između susreta, plaža Kolovare je odmah ispod dvorane. I krug ljudi koji traže isto što i ti.</p>
+  <p>Ne trebaš znati plesati. Trebaš samo doći.</p>
+  <p class="welcome-close">Tijelo zna put. Vidimo se u krugu.</p>
 </div>
 
 <!-- TABS -->
@@ -272,6 +298,9 @@ textarea{resize:vertical;min-height:90px;line-height:1.65}
     <span class="tab-day">Dan 2</span>
     <span class="tab-date">Nedjelja · 12. srpnja</span>
   </button>
+  <button class="tab-btn" onclick="switchTab('voditelji',this)">
+    <span class="tab-day">Voditelji</span>
+  </button>
   <button class="tab-btn" onclick="switchTab('contact',this)">
     <span class="tab-day">Pitanja?</span>
     <span class="tab-date">Kontakt · Biljana</span>
@@ -283,7 +312,7 @@ textarea{resize:vertical;min-height:90px;line-height:1.65}
 
   <div class="day-info">
     <div class="day-info-title">Subota · 11. srpnja — Raspored</div>
-    <div class="day-info-row">🕙 <strong>10:00–13:00</strong> Jutarnji susret — Medicine Wheel, animacija pokreta, DJ Mantra, Angelic Sound Healing</div>
+    <div class="day-info-row">🕙 <strong>10:00–13:00</strong> Jutarnji susret — Medicine Wheel, animacija pokreta, DJ Mantra (Marko Boško), Angelic Sound Healing</div>
     <div class="day-info-row">🏖 <strong>13:00–17:00</strong> Slobodno vrijeme — plaža Kolovare</div>
     <div class="day-info-row">🕔 <strong>17:00–20:00</strong> Poslijepodnevni susret — Shamanic Sound Healing, slobodni ples, zatvaranje kruga</div>
   </div>
@@ -355,13 +384,13 @@ textarea{resize:vertical;min-height:90px;line-height:1.65}
 
   <div class="day-info">
     <div class="day-info-title">Nedjelja · 12. srpnja — Raspored</div>
-    <div class="day-info-row">🕕 <strong>18:00–20:00</strong> Zvučna kupka s Ninom Kraljić — ~90 minuta zvučnog putovanja (u pokretu ili ležeći) + dijeljenje u krugu</div>
+    <div class="day-info-row">🕕 <strong>18:00–20:00</strong> Zvučna kupka s Noryom (Nina Kraljić) — ~90 minuta zvučnog putovanja (u pokretu ili ležeći) + dijeljenje u krugu</div>
     <div class="day-info-row" style="color:rgba(255,255,255,0.4);font-size:12px;">Detalji programa se finaliziraju. Bit ćeš pravovremeno obaviješten/a.</div>
   </div>
 
   <div class="price-tags">
     <span class="price-tag early">€30 po osobi</span>
-    <span class="price-tag regular">Studio Heka · Nina Kraljić</span>
+    <span class="price-tag regular">Norya • Nina Kraljić</span>
   </div>
 
   <div id="form-day2-wrap">
@@ -394,7 +423,7 @@ textarea{resize:vertical;min-height:90px;line-height:1.65}
         <span class="iban-text">HR82 2402 0061 1406 4628 7</span>
         <button type="button" class="iban-copy-btn" onclick="copyIBAN(this)">Kopiraj</button>
       </div>
-      <p class="deposit-note">Cijena zvučne kupke s Ninom Kraljić je €30 po osobi. Možeš platiti cijeli iznos unaprijed na IBAN ili na licu mjesta.</p>
+      <p class="deposit-note">Cijena zvučne kupke s Noryom (Nina Kraljić) je €30 po osobi. Možeš platiti cijeli iznos unaprijed na IBAN ili na licu mjesta.</p>
     </div>
 
     <div id="d2-err" class="err-msg"></div>
@@ -409,16 +438,47 @@ textarea{resize:vertical;min-height:90px;line-height:1.65}
   <div class="success-box" id="d2-success">
     <div class="success-icon">✦</div>
     <h2>Prijava primljena!</h2>
-    <p>Hvala na prijavi za Dan 2 — Nedjelju, 12. srpnja.<br>Cijena je €30 po osobi — možeš platiti na IBAN ili na licu mjesta.<br>Vidimo se na zvučnom putovanju s Ninom Kraljić! 🔔</p>
+    <p>Hvala na prijavi za Dan 2 — Nedjelju, 12. srpnja.<br>Cijena je €30 po osobi — možeš platiti na IBAN ili na licu mjesta.<br>Vidimo se na zvučnom putovanju s Noryom (Nina Kraljić)! 🔔</p>
   </div>
 </div>
 
 <!-- ═══════════════════════════════ CONTACT ═══════════════════════════════ -->
+<div class="tab-panel" id="panel-voditelji">
+
+  <div class="fac-card">
+    <img class="fac-img" src="https://i.ibb.co/1tZkYZVm/biljana-face-reference.png" alt="Black Pen — Biljana Šare">
+    <div class="fac-body">
+      <div class="fac-name">Black Pen <span class="fac-real">(Biljana Šare)</span></div>
+      <div class="fac-role">Ples · Pokret · Medicine Wheel</div>
+      <p class="fac-bio">Dvadeset i pet godina istraživanja mudrosti pokreta. Pionirka 5Ritmova i voditeljica Movement Medicine pristupa. Biljana otvara i drži Medicine Wheel, vodi animaciju tijela i ples u krugu i u paru. Njezin prostor spaja jasnu strukturu i zdrave granice s fluidnošću, spontanošću i kokreacijom. Poziva na duboku prisutnost, slušanje tijela i povezivanje nevidljivog s fizičkim, bez ikakvog forsiranja.</p>
+    </div>
+  </div>
+
+  <div class="fac-card">
+    <img class="fac-img" src="https://i.ibb.co/sYZhLsM/DJ-MANTRA-SMALL.png" alt="DJ Mantra — Marko Boško">
+    <div class="fac-body">
+      <div class="fac-name">DJ Mantra <span class="fac-real">(Marko Boško)</span></div>
+      <div class="fac-role">Ritam · Glazba · Uzemljenje</div>
+      <p class="fac-bio">Perkusionist i osnivač Tribal Jam Orchestre. Njegova glazba diše u valovima, polako se diže iz duboke uzemljenosti, raste prema ekstatičnom vrhuncu i meko se spušta natrag u tišinu, tako da tijelo samo zna kada hodati, kada letjeti, a kada mirovati. Otvara dan dubokom, srčanom glazbom dobrodošlice, kroz jutro vodi ritam koji uzemljuje, a popodne prepušta sat slobodnog plesa u kojem osjeća energiju grupe i prati je bez riječi.</p>
+    </div>
+  </div>
+
+  <div class="fac-card">
+    <img class="fac-img" src="https://i.ibb.co/8tV7Wp6/nina-kraljic-instagram.jpg" alt="Norya — Nina Kraljić">
+    <div class="fac-body">
+      <div class="fac-name">Norya <span class="fac-real">(Nina Kraljić)</span></div>
+      <div class="fac-role">Glas · Sound Healing</div>
+      <p class="fac-bio">Glas koji liječi. Zvukoterapeutkinja i pjevačica, poznata i kao pobjednica The Voicea, danas stvara pod imenom Norya. U jutarnjem susretu intuitivno prati otvaranje kruga glasom i uvodi tijelo u duboki odmor kroz Angelic sound healing. Popodne vodi šamansko zvučno putovanje, a u nedjelju samostalnu zvučnu kupku od devedeset minuta. Nađeš je na Instagramu kao <a href="https://www.instagram.com/norya.music/" target="_blank" rel="noopener">@norya.music</a>.</p>
+    </div>
+  </div>
+
+</div>
+
 <div class="tab-panel" id="panel-contact">
 
   <div class="day-info" style="background:rgba(242,183,92,0.06);border-color:rgba(242,183,92,0.25);margin-top:1.5rem">
     <div class="day-info-title" style="color:var(--gold)">Pitanja? Piši Biljani</div>
-    <div class="day-info-row">Biljana Šare (Black Pen) je voditeljica ovog događaja i tu je za sva tvoja pitanja — o programu, smještaju, posebnim potrebama ili bilo čemu drugom.</div>
+    <div class="day-info-row">Black Pen (Biljana Šare) je voditeljica ovog događaja i tu je za sva tvoja pitanja — o programu, smještaju, posebnim potrebama ili bilo čemu drugom.</div>
   </div>
 
   <div class="section-label" style="margin-top:1.5rem">Direktan kontakt</div>
