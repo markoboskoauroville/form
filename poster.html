@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+<meta charset="UTF-8">
+<title>Ples Duše — Poster Mockup</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#1a1a1a;display:flex;justify-content:center;padding:40px;font-family:'Outfit',sans-serif}
+.poster{
+  position:relative;width:540px;height:675px; /* 1080x1350 @ 50% */
+  overflow:hidden;border-radius:4px;box-shadow:0 30px 80px rgba(0,0,0,.6);
+  background:#0a1411;
+}
+.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 30%}
+.shade-top{position:absolute;top:0;left:0;right:0;height:34%;background:linear-gradient(180deg,rgba(10,20,17,.82) 0%,rgba(10,20,17,.35) 60%,rgba(10,20,17,0) 100%)}
+.shade-bot{position:absolute;bottom:0;left:0;right:0;height:46%;background:linear-gradient(0deg,rgba(10,20,17,.95) 0%,rgba(10,20,17,.75) 55%,rgba(10,20,17,0) 100%)}
+.content{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;text-align:center;padding:30px 28px 24px}
+.kicker{font-size:9.5px;font-weight:400;letter-spacing:.32em;text-transform:uppercase;color:#f0e6cf;opacity:.92}
+h1{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:64px;letter-spacing:.14em;color:#f2b75c;margin:10px 0 8px;text-shadow:0 2px 24px rgba(0,0,0,.55)}
+.meta{font-size:11.5px;font-weight:400;letter-spacing:.18em;text-transform:uppercase;color:#f0e6cf}
+.meta b{color:#7fd0ea;font-weight:500}
+.line{width:64px;height:1px;background:#5cb8d6;opacity:.8;margin:14px auto 0}
+.spacer{flex:1}
+.facs{display:flex;justify-content:center;gap:34px;margin-bottom:16px}
+.fac{display:flex;flex-direction:column;align-items:center;width:128px}
+.fac img{width:84px;height:84px;border-radius:50%;object-fit:cover;border:2px solid #f2b75c;box-shadow:0 6px 22px rgba(0,0,0,.55)}
+.fac .n{margin-top:8px;font-size:11.5px;font-weight:600;color:#f2b75c;letter-spacing:.04em}
+.fac .r{font-size:9px;font-weight:300;color:#f0e6cf;opacity:.85;margin-top:1px;letter-spacing:.06em}
+.fac .d{font-size:8.5px;letter-spacing:.16em;text-transform:uppercase;color:#7fd0ea;margin-top:4px}
+.footer{display:flex;align-items:center;gap:14px;width:100%;justify-content:center;border-top:.5px solid rgba(242,183,92,.25);padding-top:13px}
+.foot-left{text-align:left}
+.foot-label{font-size:8.5px;letter-spacing:.26em;text-transform:uppercase;color:#f0e6cf;opacity:.7}
+.foot-link{font-size:11px;font-weight:500;color:#f2b75c;margin-top:2px;letter-spacing:.02em}
+.foot-price{font-size:9px;color:#f0e6cf;opacity:.8;margin-top:3px;letter-spacing:.05em}
+.qr{width:56px;height:56px;background:#f0e6cf;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.qr img{width:50px;height:50px}
+</style>
+</head>
+<body>
+<div class="poster">
+  <img class="bg" src="https://i.ibb.co/SD8s5bx8/PLES-DUSE-HERO-IMAGE.png" alt="">
+  <div class="shade-top"></div>
+  <div class="shade-bot"></div>
+  <div class="content">
+    <div class="kicker">Meditativno ritualni susret kroz pokret, ritam i glas</div>
+    <h1>PLES DUŠE</h1>
+    <div class="meta">Zadar · <b>11. i 12. srpnja 2026.</b> · Dvorana na Ravnicama</div>
+    <div class="line"></div>
+    <div class="spacer"></div>
+    <div class="facs">
+      <div class="fac">
+        <img src="https://i.ibb.co/1tZkYZVm/biljana-face-reference.png" alt="Black Pen">
+        <div class="n">Black Pen</div>
+        <div class="r">Biljana Šare</div>
+        <div class="d">ples i pokret</div>
+      </div>
+      <div class="fac">
+        <img src="https://i.ibb.co/sYZhLsM/DJ-MANTRA-SMALL.png" alt="DJ Mantra">
+        <div class="n">DJ Mantra</div>
+        <div class="r">Marko Boško</div>
+        <div class="d">ritam i glazba</div>
+      </div>
+      <div class="fac">
+        <img src="https://i.ibb.co/8tV7Wp6/nina-kraljic-instagram.jpg" alt="Norya">
+        <div class="n">Norya</div>
+        <div class="r">Nina Kraljić</div>
+        <div class="d">glas i zvuk</div>
+      </div>
+    </div>
+    <div class="footer">
+      <div class="foot-left">
+        <div class="foot-label">Prijave i program</div>
+        <div class="foot-link">markoboskoauroville.github.io/form</div>
+        <div class="foot-price">od €80 · rana prijava do 1. srpnja</div>
+      </div>
+      <div class="qr">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&color=0a1411&bgcolor=f0e6cf&data=https%3A%2F%2Fmarkoboskoauroville.github.io%2Fform%2Fprijava-ples-duse.html" alt="QR">
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
