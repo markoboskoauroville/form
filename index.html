@@ -647,6 +647,7 @@ function showSuccess(successId, wrapId) {
 document.getElementById('form-day1').addEventListener('submit', function(e){
   e.preventDefault();
   submitForm('form-day1', [
+    {key:'sheet', val:'Dan 1'},
     {key:'day', val:'Dan 1 – Subota 11.07.'},
     {key:'name', val:document.getElementById('d1-name').value.trim(), required:true},
     {key:'email', val:document.getElementById('d1-email').value.trim(), required:true},
@@ -658,6 +659,7 @@ document.getElementById('form-day1').addEventListener('submit', function(e){
 document.getElementById('form-day2').addEventListener('submit', function(e){
   e.preventDefault();
   submitForm('form-day2', [
+    {key:'sheet', val:'Dan 2'},
     {key:'day', val:'Dan 2 – Nedjelja 12.07.'},
     {key:'name', val:document.getElementById('d2-name').value.trim(), required:true},
     {key:'email', val:document.getElementById('d2-email').value.trim(), required:true},
@@ -668,6 +670,7 @@ document.getElementById('form-day2').addEventListener('submit', function(e){
 document.getElementById('contact-form').addEventListener('submit', function(e){
   e.preventDefault();
   submitForm('contact-form', [
+    {key:'sheet', val:'Pitanja'},
     {key:'type', val:'Pitanje organizatoru'},
     {key:'name', val:document.getElementById('c-name').value.trim(), required:true},
     {key:'contact', val:document.getElementById('c-contact').value.trim(), required:true},
