@@ -74,6 +74,16 @@ body{background:radial-gradient(ellipse at 50% -10%,#14302a 0%,#0a1411 55%,#070f
 .welcome p{font-size:14.5px;line-height:1.85;color:rgba(240,230,207,.78);margin-bottom:.9rem;letter-spacing:.01em}
 .welcome-open{font-family:'Outfit',sans-serif;font-size:17px !important;font-weight:500;color:var(--gold) !important;letter-spacing:.02em !important}
 .welcome-close{font-style:italic;color:#7fd0ea !important;margin-bottom:0 !important}
+.wheel{background:var(--surface);border:.5px solid var(--border);border-radius:14px;padding:1.4rem 1.4rem 1.2rem;margin:1.4rem 0 1.2rem}
+.wheel-intro,.wheel-outro{font-size:13.5px;line-height:1.8;color:rgba(240,230,207,.78)}
+.wheel-intro{margin-bottom:1.1rem}
+.wheel-outro{margin-bottom:0;margin-top:1.1rem}
+.wheel-dirs{display:flex;flex-direction:column;gap:.55rem}
+.wheel-dir{display:flex;align-items:baseline;gap:.8rem;padding:.45rem .8rem;border-left:2px solid rgba(242,183,92,.45);background:rgba(242,183,92,.04);border-radius:0 8px 8px 0}
+.wd-el{font-family:'Outfit',sans-serif;font-weight:600;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);min-width:64px}
+.wd-mean{font-size:12.5px;line-height:1.6;color:rgba(240,230,207,.7)}
+.wheel-center{border-left-color:#5cb8d6;background:rgba(92,184,214,.06)}
+.wheel-center .wd-el{color:#7fd0ea}
 
 /* FACILITATORS */
 .fac-card{display:flex;gap:1.2rem;align-items:flex-start;background:var(--surface);border:.5px solid var(--border);border-radius:14px;padding:1.3rem;margin-bottom:1.1rem}
@@ -286,6 +296,18 @@ textarea{resize:vertical;min-height:90px;line-height:1.65}
   <p>Dva dana u Zadru. Pokret, ritam i glas. Otvaramo Medicine Wheel, krug koji nas drži. Black Pen (Biljana Šare) te vodi u ples. DJ Mantra (Marko Boško) donosi glazbu koja se kreće u valovima, od tihog pulsa zemlje do ekstaze i natrag u mir. Norya (Nina Kraljić) te glasom i zvukom vraća sebi.</p>
   <p>Što dobivaš? Cjelodnevno vođeno putovanje. Anđeoski i šamanski sound healing. Slobodan ples bez koreografije i bez ocjenjivanja. More između susreta, plaža Kolovare je odmah ispod dvorane. I krug ljudi koji traže isto što i ti.</p>
   <p>Ne trebaš znati plesati. Trebaš samo doći.</p>
+  <div class="wheel">
+    <p class="wheel-intro">Okvir cijelog programa je Medicine Wheel, sveti krug koji od pamtivijeka poznaju starosjedilačke kulture Sjeverne i Južne Amerike. Krug je karta i kompas. Svaka strana svijeta nosi svoju medicinu, svoju energiju, svog učitelja. Hodamo ga u smjeru sunca, a on nas uči gdje smo i što nam je sada potrebno.</p>
+    <div class="wheel-dirs">
+      <div class="wheel-dir"><span class="wd-el">Voda</span><span class="wd-mean">misterija Zapada · poniranje u dubinu, introspekcija, otpuštanje</span></div>
+      <div class="wheel-dir"><span class="wd-el">Zemlja</span><span class="wd-mean">častljivi preci Sjevera · mudrost, uzemljenost, zahvalnost onima prije nas</span></div>
+      <div class="wheel-dir"><span class="wd-el">Zrak</span><span class="wd-mean">plesač svjetla Istoka · novi početak, jasnoća, dah koji budi</span></div>
+      <div class="wheel-dir"><span class="wd-el">Vatra</span><span class="wd-mean">jug Kruga · životna snaga, rast, strast pokreta</span></div>
+      <div class="wheel-dir wheel-center"><span class="wd-el">Centar</span><span class="wd-mean">snaga Srca · mjesto gdje se sve strane susreću, u tebi</span></div>
+    </div>
+    <p class="wheel-outro">Zato na susret donosiš četiri predmeta, po jedan za svaki element. Njima zajedno otvaramo krug ujutro i zatvaramo ga navečer, a sve između, ples, ritam, glas i tišina, putovanje je kroz te četiri energije natrag u centar, u srce.</p>
+  </div>
+
   <p class="welcome-close">Tijelo zna put. Vidimo se u krugu.</p>
 </div>
 
