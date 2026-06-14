@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Ples Duše — Instagram predložak</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='32' fill='%230a1411'/%3E%3Ccircle cx='32' cy='32' r='3' fill='%23fff3d6'/%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--gold:#f2b75c;--cream:#f0e6cf;--blue:#7fd0ea;--bg:#0a1411}
+body{background:radial-gradient(ellipse at 50% -10%,#14302a 0%,#0a1411 55%,#070f0c 100%) fixed,#0a1411;color:var(--cream);font-family:'Outfit',sans-serif;font-weight:300;min-height:100vh;padding:32px 16px 64px}
+.wrap{max-width:920px;margin:0 auto}
+.page-head{text-align:center;margin-bottom:8px}
+.page-head .k{font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--blue);opacity:.8}
+.page-head h1{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:38px;color:var(--gold);letter-spacing:.04em;margin:6px 0}
+.page-head p{font-size:13.5px;color:rgba(240,230,207,.6);max-width:540px;margin:0 auto;line-height:1.7}
+.note{background:rgba(127,208,234,.08);border:.5px solid rgba(127,208,234,.3);border-radius:12px;padding:14px 18px;font-size:13px;line-height:1.7;color:rgba(240,230,207,.8);margin:24px 0 36px}
+.note b{color:var(--blue)}
+.grid{display:flex;flex-wrap:wrap;gap:36px;justify-content:center;align-items:flex-start}
+.col{flex:1;min-width:300px;max-width:420px}
+.col-title{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);text-align:center;margin-bottom:14px}
+
+/* phone mock */
+.phone{background:#000;border-radius:30px;padding:10px;box-shadow:0 24px 60px rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.08)}
+.screen{background:#000;border-radius:22px;overflow:hidden}
+.ig-bar{display:flex;align-items:center;gap:9px;padding:11px 12px;background:#000}
+.ig-ava{width:30px;height:30px;border-radius:50%;background:linear-gradient(45deg,#f2b75c,#c45fb0);padding:2px}
+.ig-ava img{width:100%;height:100%;border-radius:50%;object-fit:cover;border:2px solid #000}
+.ig-user{font-size:13px;font-weight:600;color:#fff}
+.ig-user span{display:block;font-size:10.5px;font-weight:300;color:#aaa}
+.ig-more{margin-left:auto;color:#fff;font-size:18px;letter-spacing:1px}
+.ig-img{width:100%;display:block;aspect-ratio:4/5;object-fit:cover;background:#11261f}
+.ig-actions{display:flex;gap:14px;padding:10px 12px;font-size:20px;color:#fff;background:#000}
+.ig-actions .right{margin-left:auto}
+.ig-cap{padding:0 12px 12px;font-size:12.5px;line-height:1.55;color:#fff;background:#000}
+.ig-cap b{font-weight:600}
+.ig-cap .muted{color:#8e8e8e}
+
+/* story */
+.story{position:relative;aspect-ratio:9/16;border-radius:22px;overflow:hidden;background:#11261f}
+.story img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.story-grad{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,20,17,.55) 0%,rgba(10,20,17,0) 30%,rgba(10,20,17,0) 55%,rgba(10,20,17,.85) 100%)}
+.story-top{position:absolute;top:14px;left:14px;right:14px;display:flex;align-items:center;gap:8px;z-index:2}
+.story-prog{position:absolute;top:8px;left:14px;right:14px;height:2.5px;background:rgba(255,255,255,.35);border-radius:2px;z-index:2}
+.story-prog::after{content:"";position:absolute;left:0;top:0;height:100%;width:42%;background:#fff;border-radius:2px}
+.story-ava{width:26px;height:26px;border-radius:50%;object-fit:cover;border:1.5px solid #fff}
+.story-user{font-size:12px;font-weight:600;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.5)}
+.story-body{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;text-align:center;padding:0 22px 70px;z-index:2}
+.story-body .kick{font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:#fff;opacity:.92;margin-bottom:8px;text-shadow:0 1px 6px rgba(0,0,0,.6)}
+.story-body h2{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:42px;color:#fff;letter-spacing:.05em;line-height:1;text-shadow:0 2px 14px rgba(0,0,0,.6)}
+.story-body .meta{font-size:12px;letter-spacing:.06em;color:#fff;margin-top:10px;text-shadow:0 1px 6px rgba(0,0,0,.6)}
+.story-cta{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:5px}
+.story-cta .chev{font-size:16px;color:#fff;animation:bob 1.4s ease-in-out infinite}
+.story-cta .lbl{font-size:11px;font-weight:600;letter-spacing:.1em;color:#fff;background:rgba(10,20,17,.4);padding:7px 16px;border-radius:20px;border:1px solid rgba(255,255,255,.4);backdrop-filter:blur(4px)}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
+
+/* copy block */
+.copy{margin-top:18px;background:rgba(242,183,92,.05);border:.5px solid rgba(242,183,92,.2);border-radius:12px;padding:16px}
+.copy h4{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+.copy pre{white-space:pre-wrap;font-family:'Outfit',sans-serif;font-size:12.5px;line-height:1.7;color:rgba(240,230,207,.85)}
+.tags{margin-top:10px;font-size:12px;line-height:1.8;color:var(--blue);word-spacing:2px}
+
+/* downloads */
+.dl{margin-top:48px;background:rgba(255,255,255,.03);border:.5px solid rgba(255,255,255,.1);border-radius:14px;padding:22px}
+.dl h3{font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--gold);margin-bottom:6px}
+.dl p{font-size:12.5px;color:rgba(240,230,207,.6);margin-bottom:16px}
+.dl-row{display:flex;flex-wrap:wrap;gap:12px}
+.dl-row a{display:flex;align-items:center;gap:8px;background:rgba(242,183,92,.1);border:.5px solid rgba(242,183,92,.3);color:var(--gold);text-decoration:none;font-size:12.5px;font-weight:500;padding:10px 16px;border-radius:10px;transition:background .2s}
+.dl-row a:hover{background:rgba(242,183,92,.2)}
+.foot{text-align:center;margin-top:40px;font-size:11.5px;color:rgba(240,230,207,.4)}
+.foot a{color:var(--blue)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="page-head">
+    <div class="k">Predložak za društvene mreže</div>
+    <h1>Instagram</h1>
+    <p>Ovako bi trebali izgledati objava (feed post) i priča (story) za Ples Duše. Lijevo je vizual, ispod njega gotov tekst za kopiranje. Slike za preuzimanje su na dnu stranice.</p>
+  </div>
+
+  <div class="note">
+    <b>Za dizajnera:</b> zadrži zlatno svjetlo i tamnu šumsku paletu kao na posteru. Naslov je <b>Cormorant Garamond</b>, ostatak <b>Outfit / Montserrat Light</b>. Ne stavljaj tekst preko tijela plesačice. Story uvijek završava pozivom da se povuče prema gore ili klikne link u biju.
+  </div>
+
+  <div class="grid">
+
+    <!-- POST -->
+    <div class="col">
+      <div class="col-title">Feed objava · 1080×1350</div>
+      <div class="phone"><div class="screen">
+        <div class="ig-bar">
+          <div class="ig-ava"><img src="https://i.ibb.co/SD8s5bx8/PLES-DUSE-HERO-IMAGE.png" alt=""></div>
+          <div class="ig-user">ples.duse<span>Zadar · Hrvatska</span></div>
+          <div class="ig-more">⋯</div>
+        </div>
+        <img class="ig-img" src="https://i.ibb.co/SD8s5bx8/PLES-DUSE-HERO-IMAGE.png" alt="">
+        <div class="ig-actions"><span>♡</span><span>💬</span><span>↪</span><span class="right">🔖</span></div>
+        <div class="ig-cap">
+          <b>ples.duse</b> Što ako tijelo zna put natrag — kući, u sebe? 🌀<br>
+          Ples Duše · Zadar · 11–12. srpnja 2026.<br>
+          <span class="muted">više...</span>
+        </div>
+      </div></div>
+
+      <div class="copy">
+        <h4>Tekst objave — kopiraj</h4>
+        <pre>Što ako tijelo zna put natrag — kući, u sebe? 🌀
+
+Ples Duše je susret bez riječi. Tijelo govori, um se odmara.
+
+Dva dana u Zadru kroz pokret, ritam i glas. Otvaramo Medicine Wheel, sveti krug sedam smjerova. Slobodan ples bez koreografije, anđeoski i šamanski sound healing, more odmah ispod dvorane.
+
+Ne trebaš znati plesati. Trebaš samo doći.
+
+📍 Dvorana na Ravnicama, Zadar
+🗓 11. i 12. srpnja 2026.
+🎵 Black Pen · DJ Mantra · Norya
+
+Prijave i cijeli program na linku u biju 👆
+ples-duse.org</pre>
+        <div class="tags">#PlesDuše #SvjesniPles #SoundHealing #MedicineWheel #EkstatičniPles #Zadar #MovementMedicine #Zvukoterapija #Retreat2026 #TijeloJeJezik</div>
+      </div>
+    </div>
+
+    <!-- STORY -->
+    <div class="col">
+      <div class="col-title">Priča / Story · 1080×1920</div>
+      <div class="phone"><div class="screen">
+        <div class="story">
+          <img src="https://i.ibb.co/CsP2JK1J/web-poster-bgd.png" alt="">
+          <div class="story-grad"></div>
+          <div class="story-prog"></div>
+          <div class="story-top">
+            <img class="story-ava" src="https://i.ibb.co/SD8s5bx8/PLES-DUSE-HERO-IMAGE.png" alt="">
+            <span class="story-user">ples.duse</span>
+          </div>
+          <div class="story-body">
+            <div class="kick">Meditativno ritualni susret</div>
+            <h2>Ples Duše</h2>
+            <div class="meta">Zadar · 11–12. srpnja 2026.</div>
+          </div>
+          <div class="story-cta">
+            <span class="lbl">Prijavi se 🌀</span>
+            <span class="chev">⌃</span>
+          </div>
+        </div>
+      </div></div>
+
+      <div class="copy">
+        <h4>Tekst preko priče — kratko i čitljivo</h4>
+        <pre>Naslov:  PLES DUŠE
+Nadnaslov:  Meditativno ritualni susret
+Datum:  Zadar · 11–12. srpnja 2026.
+Poziv (dno):  Prijavi se 🌀  + link sticker → ples-duse.org
+
+Druga priča (opcija):
+"Bez riječi. Bez koreografije.
+Samo pokret, ritam i glas."
++ link sticker</pre>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- DOWNLOADS -->
+  <div class="dl">
+    <h3>Slike za preuzimanje</h3>
+    <p>Otvori link, desni klik i spremi sliku, ili na mobitelu zadrži prst i Spremi. Tekst gore samo kopiraj, ne treba preuzimanje.</p>
+    <div class="dl-row">
+      <a href="https://i.ibb.co/SD8s5bx8/PLES-DUSE-HERO-IMAGE.png" target="_blank" download>⬇ Plesačica (post 4:5)</a>
+      <a href="https://i.ibb.co/CsP2JK1J/web-poster-bgd.png" target="_blank" download>⬇ Pozadina (story 9:16)</a>
+      <a href="https://ples-duse.org/poster-ples-duse.html" target="_blank">🖼 Plakat (referenca)</a>
+    </div>
+  </div>
+
+  <div class="foot">Interni predložak · ne indeksira se · <a href="https://ples-duse.org">ples-duse.org</a></div>
+</div>
+</body>
+</html>
