@@ -46,22 +46,14 @@ body{background:radial-gradient(ellipse at 50% -10%,#14302a 0%,#0a1411 55%,#070f
   z-index:2;
 }
 .hero-content{position:relative;z-index:3;padding:0 1.5rem 1.8rem}
-#audio-toggle{
-  position:absolute;left:50%;bottom:12px;transform:translateX(-50%);
-  z-index:5;width:38px;height:38px;border-radius:50%;
-  background:rgba(10,20,17,0.45);border:1px solid rgba(255,255,255,0.7);
-  color:#fff;font-family:'Courier New',monospace;font-size:15px;font-weight:700;
-  letter-spacing:-1px;line-height:1;cursor:pointer;backdrop-filter:blur(4px);
-  display:none;align-items:center;justify-content:center;
-  transition:background .2s,opacity .3s;opacity:0;padding:0;
-}
-#audio-toggle.show{display:flex;opacity:.85}
-#audio-toggle:hover{background:rgba(10,20,17,0.75);opacity:1}
 #lang-switch{position:absolute;right:14px;bottom:12px;z-index:6;font-family:'Courier New',monospace;font-size:12px;letter-spacing:.05em;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.6);display:flex;align-items:center;gap:6px;user-select:none}
 #lang-switch span[data-lang]{cursor:pointer;opacity:.8;padding-bottom:1px;border-bottom:1px solid transparent;transition:opacity .15s,border-color .15s}
 #lang-switch span[data-lang]:hover{opacity:1;border-bottom-color:#fff}
 #lang-switch span[data-lang].active{opacity:1;color:var(--gold);font-weight:700}
 #lang-switch .sep{opacity:.4}
+#audio-toggle{cursor:pointer;opacity:.85;font-weight:700;letter-spacing:-1px;transition:opacity .15s,color .15s}
+#audio-toggle:hover{opacity:1}
+#audio-toggle.playing{color:var(--gold)}
 .title-gloss{font-style:italic;color:#7fd0ea !important;font-weight:400 !important;font-size:14px !important;margin-top:-2px}
 .hero-eyebrow{
   font-family:'Outfit',sans-serif;font-size:11px;font-weight:500;
@@ -288,7 +280,7 @@ textarea{resize:vertical;min-height:90px;line-height:1.65}
 <div class="page">
 
 <!-- HERO -->
-<div class="hero" id="hero" style="cursor:pointer">
+<div class="hero" id="hero">
   <div class="hero-fallback"></div>
   <img id="hero-img" src="https://i.ibb.co/SD8s5bx8/PLES-DUSE-HERO-IMAGE.png" alt="Ples Duše" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;transition:opacity .4s">
   <div class="hero-content">
@@ -297,9 +289,8 @@ textarea{resize:vertical;min-height:90px;line-height:1.65}
     <p class="title-gloss" id="title-gloss"></p>
     <p class="hero-sub">Meditativno ritualni susret kroz pokret, ritam i glas</p>
   </div>
-  <button id="audio-toggle" aria-label="Glazba" title="Glazba">||</button>
   <div id="lang-switch">
-    <span data-lang="hr" class="active">HR</span><span class="sep">|</span><span data-lang="en">ENG</span><span class="sep">|</span><span data-lang="de">GER</span>
+    <span data-lang="hr" class="active">HR</span><span class="sep">|</span><span data-lang="en">ENG</span><span class="sep">|</span><span data-lang="de">GER</span><span class="sep">|</span><span id="audio-toggle" role="button" aria-label="Glazba" title="Glazba">&gt;</span>
   </div>
   <audio id="hero-audio" loop preload="none" src="https://ples-duse.org/says-hq.mp3"></audio>
 </div>
@@ -327,7 +318,7 @@ textarea{resize:vertical;min-height:90px;line-height:1.65}
       <div class="wheel-dir"><span class="wd-el">Zapad</span><span class="wd-mean">Zemlja · kiša i pročišćenje, promišljanje i završetak, jesen</span></div>
       <div class="wheel-dir"><span class="wd-el">Sjever</span><span class="wd-mean">Zrak · mudrost, snaga i izdržljivost, izazov, zima</span></div>
       <div class="wheel-dir"><span class="wd-el">Nebo</span><span class="wd-mean">Gore · Otac, sve što je iznad nas, beskraj koji nas nadvija</span></div>
-      <div class="wheel-dir"><span class="wd-el">Tlo</span><span class="wd-mean">Dolje · Majka Zemlja koja drži naša stopala, oslonac i pripadnost</span></div>
+      <div class="wheel-dir"><span class="wd-el">Zemlja</span><span class="wd-mean">Dolje · Majka Zemlja koja drži naša stopala, oslonac i pripadnost</span></div>
       <div class="wheel-dir wheel-center"><span class="wd-el">Srce</span><span class="wd-mean">Centar · srce plesača, mjesto gdje se svih šest smjerova susreću, u tebi</span></div>
     </div>
     <p class="wheel-outro">Četiri strane svijeta nose četiri elementa, a krug zatvaraju Nebo iznad i Zemlja ispod, dok sve drži Srce u centru. Zato na susret donosiš četiri predmeta, po jedan za svaki element. Njima zajedno otvaramo krug ujutro i zatvaramo ga navečer, a sve između, ples, ritam, glas i tišina, putovanje je kroz svih sedam smjerova natrag u srce.</p>
@@ -598,30 +589,26 @@ textarea{resize:vertical;min-height:90px;line-height:1.65}
 (function(){
   var audio = document.getElementById('hero-audio');
   var btn = document.getElementById('audio-toggle');
-  var hero = document.getElementById('hero');
-  if(!audio || !btn || !hero) return;
+  if(!audio || !btn) return;
   audio.volume = 0.5;
-  var started = false;
 
-  function setIcon(){ btn.textContent = audio.paused ? '>' : '||'; }
+  function setIcon(){
+    btn.innerHTML = audio.paused ? '&gt;' : '||';
+    btn.classList.toggle('playing', !audio.paused);
+  }
 
   function toggle(){
     if(audio.paused){
-      audio.play().then(function(){
-        if(!started){ started = true; btn.classList.add('show'); }
-        setIcon();
-      }).catch(function(){});
+      audio.play().then(setIcon).catch(function(){});
     } else {
       audio.pause(); setIcon();
     }
   }
 
-  hero.addEventListener('click', function(e){
-    if(e.target === btn) return; // button handles its own click
-    toggle();
-  });
   btn.addEventListener('click', function(e){ e.stopPropagation(); toggle(); });
   audio.addEventListener('ended', setIcon);
+  audio.addEventListener('pause', setIcon);
+  audio.addEventListener('play', setIcon);
 })();
 </script>
 <script>
@@ -752,6 +739,14 @@ document.getElementById('contact-form').addEventListener('submit', function(e){
     "Što dobivaš? Cjelodnevno vođeno putovanje. Anđeoski i šamanski sound healing. Slobodan ples bez koreografije i bez ocjenjivanja. More između susreta, plaža Kolovare je odmah ispod dvorane. I krug ljudi koji traže isto što i ti.": {en:"What do you get? A full-day guided journey. Angelic and shamanic sound healing. Free dance with no choreography and no judgement. The sea between sessions, Kolovare beach is right below the hall. And a circle of people seeking the same as you.", de:"Was bekommst du? Eine ganztägige geführte Reise. Engelhaftes und schamanisches Sound Healing. Freier Tanz ohne Choreografie und ohne Bewertung. Das Meer zwischen den Sessions, der Strand Kolovare liegt direkt unter dem Saal. Und ein Kreis von Menschen, die dasselbe suchen wie du."},
     "Ne trebaš znati plesati. Trebaš samo doći.": {en:"You don't need to know how to dance. You only need to come.", de:"Du musst nicht tanzen können. Du musst nur kommen."},
     "Okvir cijelog programa je Medicine Wheel, sveti krug koji od pamtivijeka poznaju starosjedilačke kulture Sjeverne i Južne Amerike. Krug je karta i kompas. Svaka strana svijeta nosi svoju medicinu, svoju energiju, svog učitelja. Hodamo ga u smjeru sunca, a on nas uči gdje smo i što nam je sada potrebno. Različite tradicije ponekad drugačije raspoređuju elemente i boje, mi slijedimo lakotsko učenje u kojem centar govori gdje stojimo u odnosu na Zemlju i duh.": {en:"The framework of the whole program is the Medicine Wheel, a sacred circle known since ancient times to the native cultures of North and South America. The circle is a map and a compass. Each direction carries its own medicine, its own energy, its own teacher. We walk it in the direction of the sun, and it teaches us where we are and what we need now. Different traditions sometimes arrange the elements and colours differently; we follow the Lakota teaching, in which the centre speaks of where we stand in relation to the Earth and spirit.", de:"Der Rahmen des gesamten Programms ist das Medicine Wheel, ein heiliger Kreis, den die indigenen Kulturen Nord- und Südamerikas seit jeher kennen. Der Kreis ist Karte und Kompass. Jede Himmelsrichtung trägt ihre eigene Medizin, ihre eigene Energie, ihren eigenen Lehrer. Wir gehen ihn im Lauf der Sonne, und er lehrt uns, wo wir sind und was wir jetzt brauchen. Verschiedene Traditionen ordnen Elemente und Farben mitunter anders an; wir folgen der Lakota-Lehre, in der das Zentrum davon spricht, wo wir in Bezug auf die Erde und den Geist stehen."},
+    // wheel direction names
+    "Istok": {en:"East", de:"Osten"},
+    "Jug": {en:"South", de:"Süden"},
+    "Zapad": {en:"West", de:"Westen"},
+    "Sjever": {en:"North", de:"Norden"},
+    "Nebo": {en:"Sky", de:"Himmel"},
+    "Zemlja": {en:"Earth", de:"Erde"},
+    "Srce": {en:"Heart", de:"Herz"},
     "Vatra · izlazak sunca, novi početak i prosvjetljenje, proljeće": {en:"Fire · sunrise, new beginning and enlightenment, spring", de:"Feuer · Sonnenaufgang, Neubeginn und Erleuchtung, Frühling"},
     "Voda · toplina, rast i hranjenje, velikodušnost, ljeto": {en:"Water · warmth, growth and nourishment, generosity, summer", de:"Wasser · Wärme, Wachstum und Nahrung, Großzügigkeit, Sommer"},
     "Zemlja · kiša i pročišćenje, promišljanje i završetak, jesen": {en:"Earth · rain and purification, reflection and ending, autumn", de:"Erde · Regen und Reinigung, Besinnung und Abschluss, Herbst"},
@@ -829,8 +824,8 @@ document.getElementById('contact-form').addEventListener('submit', function(e){
   // title gloss per language
   var GLOSS = {
     hr: "",
-    en: "“Ples Duše” means Dance of the Soul",
-    de: "„Ples Duše“ bedeutet Tanz der Seele"
+    en: "Dance of the Soul",
+    de: "Tanz der Seele"
   };
 
   // success messages (innerHTML with <br>)
@@ -901,12 +896,11 @@ document.getElementById('contact-form').addEventListener('submit', function(e){
       s.classList.toggle('active', s.getAttribute('data-lang')===lang);
     });
     document.documentElement.lang = lang;
-    try{ document.cookie = "pd_lang="+lang+";path=/;max-age="+(60*60*24*365); }catch(e){}
+    try{ localStorage.setItem('pd_lang', lang); }catch(e){}
   }
 
   function getCookieLang(){
-    var m = document.cookie.match(/(?:^|;\s*)pd_lang=(hr|en|de)/);
-    return m ? m[1] : null;
+    try{ var v = localStorage.getItem('pd_lang'); return (v==='hr'||v==='en'||v==='de') ? v : null; }catch(e){ return null; }
   }
 
   document.addEventListener('DOMContentLoaded', function(){
