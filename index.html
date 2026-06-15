@@ -285,8 +285,7 @@ textarea{resize:vertical;min-height:90px;line-height:1.65}
   <img id="hero-img" src="https://i.ibb.co/SD8s5bx8/PLES-DUSE-HERO-IMAGE.png" alt="Ples Duše" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;transition:opacity .4s">
   <div class="hero-content">
     <p class="hero-eyebrow">Prijava za događaj · Zadar 2026</p>
-    <h1>Ples Duše</h1>
-    <p class="title-gloss" id="title-gloss"></p>
+    <h1 id="hero-title">Ples Duše</h1>
     <p class="hero-sub">Meditativno ritualni susret kroz pokret, ritam i glas</p>
   </div>
   <div id="lang-switch">
@@ -822,8 +821,8 @@ document.getElementById('contact-form').addEventListener('submit', function(e){
   };
 
   // title gloss per language
-  var GLOSS = {
-    hr: "",
+  var TITLE = {
+    hr: "Ples Duše",
     en: "Dance of the Soul",
     de: "Tanz der Seele"
   };
@@ -889,8 +888,8 @@ document.getElementById('contact-form').addEventListener('submit', function(e){
       }
     });
     // title gloss
-    var g = document.getElementById('title-gloss');
-    if(g){ g.textContent = GLOSS[lang]; g.style.display = GLOSS[lang] ? 'block' : 'none'; }
+    var g = document.getElementById('hero-title');
+    if(g){ g.textContent = TITLE[lang]; }
     // switch active marker
     document.querySelectorAll('#lang-switch span[data-lang]').forEach(function(s){
       s.classList.toggle('active', s.getAttribute('data-lang')===lang);
