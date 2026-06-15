@@ -57,6 +57,12 @@ body{background:radial-gradient(ellipse at 50% -10%,#14302a 0%,#0a1411 55%,#070f
 }
 #audio-toggle.show{display:flex;opacity:.85}
 #audio-toggle:hover{background:rgba(10,20,17,0.75);opacity:1}
+#lang-switch{position:absolute;right:14px;bottom:12px;z-index:6;font-family:'Courier New',monospace;font-size:12px;letter-spacing:.05em;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.6);display:flex;align-items:center;gap:6px;user-select:none}
+#lang-switch span[data-lang]{cursor:pointer;opacity:.8;padding-bottom:1px;border-bottom:1px solid transparent;transition:opacity .15s,border-color .15s}
+#lang-switch span[data-lang]:hover{opacity:1;border-bottom-color:#fff}
+#lang-switch span[data-lang].active{opacity:1;color:var(--gold);font-weight:700}
+#lang-switch .sep{opacity:.4}
+.title-gloss{font-style:italic;color:#7fd0ea !important;font-weight:400 !important;font-size:14px !important;margin-top:-2px}
 .hero-eyebrow{
   font-family:'Outfit',sans-serif;font-size:11px;font-weight:500;
   letter-spacing:.35em;text-transform:uppercase;color:var(--gold);margin-bottom:.5rem
@@ -288,9 +294,13 @@ textarea{resize:vertical;min-height:90px;line-height:1.65}
   <div class="hero-content">
     <p class="hero-eyebrow">Prijava za događaj · Zadar 2026</p>
     <h1>Ples Duše</h1>
+    <p class="title-gloss" id="title-gloss"></p>
     <p class="hero-sub">Meditativno ritualni susret kroz pokret, ritam i glas</p>
   </div>
   <button id="audio-toggle" aria-label="Glazba" title="Glazba">||</button>
+  <div id="lang-switch">
+    <span data-lang="hr" class="active">HR</span><span class="sep">|</span><span data-lang="en">ENG</span><span class="sep">|</span><span data-lang="de">GER</span>
+  </div>
   <audio id="hero-audio" loop preload="none" src="https://ples-duse.org/says-hq.mp3"></audio>
 </div>
 
@@ -726,5 +736,192 @@ document.getElementById('contact-form').addEventListener('submit', function(e){
   ], 'c-submit', 'c-err', 'c-success', 'contact-form-wrap');
 });
 </script>
+<script>
+/* ============ PLES DUSE — i18n (HR default, EN, DE) ============ */
+(function(){
+  // exact Croatian string  ->  { en, de }
+  var DICT = {
+    "Prijava za događaj · Zadar 2026": {en:"Event registration · Zadar 2026", de:"Anmeldung zum Event · Zadar 2026"},
+    "Meditativno ritualni susret kroz pokret, ritam i glas": {en:"A meditative ritual gathering through movement, rhythm and voice", de:"Eine meditativ-rituelle Begegnung durch Bewegung, Rhythmus und Stimme"},
+    "📍 Dvorana na Ravnicama, Zadar": {en:"📍 Ravnice Hall, Zadar", de:"📍 Saal auf Ravnice, Zadar"},
+    "🗓 11–12. srpnja 2026.": {en:"🗓 11–12 July 2026", de:"🗓 11.–12. Juli 2026"},
+    "💶 80 – 120 EUR": {en:"💶 80 – 120 EUR", de:"💶 80 – 120 EUR"},
+    "Dobrodošla i dobrodošao na ovaj događaj.": {en:"Welcome to this gathering.", de:"Willkommen zu dieser Begegnung."},
+    "Ples Duše je susret bez riječi. Tijelo govori. Um se odmara.": {en:"Ples Duše is a gathering without words. The body speaks. The mind rests.", de:"Ples Duše ist eine Begegnung ohne Worte. Der Körper spricht. Der Geist ruht."},
+    "Dva dana u Zadru. Pokret, ritam i glas. Otvaramo Medicine Wheel, krug koji nas drži. Black Pen (Biljana Šare) te vodi u ples. DJ Mantra (Marko Boško) donosi glazbu koja se kreće u valovima, od tihog pulsa zemlje do ekstaze i natrag u mir. Norya (Nina Kraljić) te glasom i zvukom vraća sebi.": {en:"Two days in Zadar. Movement, rhythm and voice. We open the Medicine Wheel, the circle that holds us. Black Pen (Biljana Šare) guides you into dance. DJ Mantra (Marko Boško) brings music that moves in waves, from the quiet pulse of the earth to ecstasy and back into stillness. Norya (Nina Kraljić) brings you back to yourself through voice and sound.", de:"Zwei Tage in Zadar. Bewegung, Rhythmus und Stimme. Wir öffnen das Medicine Wheel, den Kreis, der uns hält. Black Pen (Biljana Šare) führt dich in den Tanz. DJ Mantra (Marko Boško) bringt Musik, die sich in Wellen bewegt, vom stillen Puls der Erde bis zur Ekstase und zurück in die Ruhe. Norya (Nina Kraljić) bringt dich durch Stimme und Klang zu dir selbst zurück."},
+    "Što dobivaš? Cjelodnevno vođeno putovanje. Anđeoski i šamanski sound healing. Slobodan ples bez koreografije i bez ocjenjivanja. More između susreta, plaža Kolovare je odmah ispod dvorane. I krug ljudi koji traže isto što i ti.": {en:"What do you get? A full-day guided journey. Angelic and shamanic sound healing. Free dance with no choreography and no judgement. The sea between sessions, Kolovare beach is right below the hall. And a circle of people seeking the same as you.", de:"Was bekommst du? Eine ganztägige geführte Reise. Engelhaftes und schamanisches Sound Healing. Freier Tanz ohne Choreografie und ohne Bewertung. Das Meer zwischen den Sessions, der Strand Kolovare liegt direkt unter dem Saal. Und ein Kreis von Menschen, die dasselbe suchen wie du."},
+    "Ne trebaš znati plesati. Trebaš samo doći.": {en:"You don't need to know how to dance. You only need to come.", de:"Du musst nicht tanzen können. Du musst nur kommen."},
+    "Okvir cijelog programa je Medicine Wheel, sveti krug koji od pamtivijeka poznaju starosjedilačke kulture Sjeverne i Južne Amerike. Krug je karta i kompas. Svaka strana svijeta nosi svoju medicinu, svoju energiju, svog učitelja. Hodamo ga u smjeru sunca, a on nas uči gdje smo i što nam je sada potrebno. Različite tradicije ponekad drugačije raspoređuju elemente i boje, mi slijedimo lakotsko učenje u kojem centar govori gdje stojimo u odnosu na Zemlju i duh.": {en:"The framework of the whole program is the Medicine Wheel, a sacred circle known since ancient times to the native cultures of North and South America. The circle is a map and a compass. Each direction carries its own medicine, its own energy, its own teacher. We walk it in the direction of the sun, and it teaches us where we are and what we need now. Different traditions sometimes arrange the elements and colours differently; we follow the Lakota teaching, in which the centre speaks of where we stand in relation to the Earth and spirit.", de:"Der Rahmen des gesamten Programms ist das Medicine Wheel, ein heiliger Kreis, den die indigenen Kulturen Nord- und Südamerikas seit jeher kennen. Der Kreis ist Karte und Kompass. Jede Himmelsrichtung trägt ihre eigene Medizin, ihre eigene Energie, ihren eigenen Lehrer. Wir gehen ihn im Lauf der Sonne, und er lehrt uns, wo wir sind und was wir jetzt brauchen. Verschiedene Traditionen ordnen Elemente und Farben mitunter anders an; wir folgen der Lakota-Lehre, in der das Zentrum davon spricht, wo wir in Bezug auf die Erde und den Geist stehen."},
+    "Vatra · izlazak sunca, novi početak i prosvjetljenje, proljeće": {en:"Fire · sunrise, new beginning and enlightenment, spring", de:"Feuer · Sonnenaufgang, Neubeginn und Erleuchtung, Frühling"},
+    "Voda · toplina, rast i hranjenje, velikodušnost, ljeto": {en:"Water · warmth, growth and nourishment, generosity, summer", de:"Wasser · Wärme, Wachstum und Nahrung, Großzügigkeit, Sommer"},
+    "Zemlja · kiša i pročišćenje, promišljanje i završetak, jesen": {en:"Earth · rain and purification, reflection and ending, autumn", de:"Erde · Regen und Reinigung, Besinnung und Abschluss, Herbst"},
+    "Zrak · mudrost, snaga i izdržljivost, izazov, zima": {en:"Air · wisdom, strength and endurance, challenge, winter", de:"Luft · Weisheit, Kraft und Ausdauer, Herausforderung, Winter"},
+    "Gore · Otac, sve što je iznad nas, beskraj koji nas nadvija": {en:"Above · Father, all that is above us, the infinity that arches over us", de:"Oben · Vater, alles, was über uns ist, die Unendlichkeit, die sich über uns wölbt"},
+    "Dolje · Majka Zemlja koja drži naša stopala, oslonac i pripadnost": {en:"Below · Mother Earth who holds our feet, support and belonging", de:"Unten · Mutter Erde, die unsere Füße hält, Halt und Zugehörigkeit"},
+    "Centar · srce plesača, mjesto gdje se svih šest smjerova susreću, u tebi": {en:"Centre · the dancer's heart, where all six directions meet, within you", de:"Zentrum · das Herz des Tänzers, wo sich alle sechs Richtungen treffen, in dir"},
+    "Četiri strane svijeta nose četiri elementa, a krug zatvaraju Nebo iznad i Zemlja ispod, dok sve drži Srce u centru. Zato na susret donosiš četiri predmeta, po jedan za svaki element. Njima zajedno otvaramo krug ujutro i zatvaramo ga navečer, a sve između, ples, ritam, glas i tišina, putovanje je kroz svih sedam smjerova natrag u srce.": {en:"The four directions carry the four elements, and the circle is closed by Sky above and Earth below, while the Heart in the centre holds it all. That is why you bring four objects to the gathering, one for each element. Together we open the circle in the morning and close it in the evening, and everything in between, dance, rhythm, voice and silence, is a journey through all seven directions back to the heart.", de:"Die vier Himmelsrichtungen tragen die vier Elemente, und der Kreis wird durch den Himmel oben und die Erde unten geschlossen, während das Herz im Zentrum alles hält. Deshalb bringst du vier Gegenstände zur Begegnung mit, einen für jedes Element. Gemeinsam öffnen wir den Kreis am Morgen und schließen ihn am Abend, und alles dazwischen, Tanz, Rhythmus, Stimme und Stille, ist eine Reise durch alle sieben Richtungen zurück zum Herzen."},
+    "Tijelo zna put. Vidimo se u krugu.": {en:"The body knows the way. See you in the circle.", de:"Der Körper kennt den Weg. Wir sehen uns im Kreis."},
+    // tabs
+    "Dan 1": {en:"Day 1", de:"Tag 1"},
+    "Dan 2": {en:"Day 2", de:"Tag 2"},
+    "Subota · 11. srpnja": {en:"Saturday · 11 July", de:"Samstag · 11. Juli"},
+    "Nedjelja · 12. srpnja": {en:"Sunday · 12 July", de:"Sonntag · 12. Juli"},
+    "Voditelji": {en:"Facilitators", de:"Leitung"},
+    "Pitanja?": {en:"Questions?", de:"Fragen?"},
+    "Kontakt · Biljana": {en:"Contact · Biljana", de:"Kontakt · Biljana"},
+    // day1
+    "Subota · 11. srpnja — Raspored": {en:"Saturday · 11 July — Schedule", de:"Samstag · 11. Juli — Programm"},
+    "Jutarnji susret — Medicine Wheel, animacija pokreta, DJ Mantra (Marko Boško), Angelic Sound Healing": {en:"Morning session — Medicine Wheel, movement animation, DJ Mantra (Marko Boško), Angelic Sound Healing", de:"Morgensession — Medicine Wheel, Bewegungsanimation, DJ Mantra (Marko Boško), Angelic Sound Healing"},
+    "Slobodno vrijeme — plaža Kolovare": {en:"Free time — Kolovare beach", de:"Freie Zeit — Strand Kolovare"},
+    "Poslijepodnevni susret — Shamanic Sound Healing, slobodni ples, zatvaranje kruga": {en:"Afternoon session — Shamanic Sound Healing, free dance, closing the circle", de:"Nachmittagssession — Shamanic Sound Healing, freier Tanz, Schließen des Kreises"},
+    "€80 — do 1. srpnja": {en:"€80 — until 1 July", de:"€80 — bis 1. Juli"},
+    "€100 — parovi": {en:"€100 — couples", de:"€100 — Paare"},
+    "€120 — kasna prijava": {en:"€120 — late registration", de:"€120 — Spätanmeldung"},
+    "Vaši podaci": {en:"Your details", de:"Deine Angaben"},
+    "Uplata akontacije": {en:"Deposit payment", de:"Anzahlung"},
+    "Uplata": {en:"Payment", de:"Zahlung"},
+    "Podaci za uplatu": {en:"Payment details", de:"Zahlungsdaten"},
+    "Primatelj": {en:"Recipient", de:"Empfänger"},
+    "Opis plaćanja": {en:"Payment reference", de:"Verwendungszweck"},
+    "Ples Duše – Dan 1 + vaše ime": {en:"Ples Duše – Day 1 + your name", de:"Ples Duše – Tag 1 + dein Name"},
+    "Ples Duše – Dan 2 + vaše ime": {en:"Ples Duše – Day 2 + your name", de:"Ples Duše – Tag 2 + dein Name"},
+    "Akontacija (nepovratna)": {en:"Deposit (non-refundable)", de:"Anzahlung (nicht erstattbar)"},
+    "Cijena po osobi": {en:"Price per person", de:"Preis pro Person"},
+    "Kopiraj": {en:"Copy", de:"Kopieren"},
+    "Akontacijom od €20 potvrđuješ prijavu. Ostatak iznosa možeš platiti na licu mjesta ili na isti IBAN. Akontacija je nepovratna.": {en:"A €20 deposit confirms your registration. You can pay the remaining amount on site or to the same IBAN. The deposit is non-refundable.", de:"Mit einer Anzahlung von €20 bestätigst du deine Anmeldung. Den Restbetrag kannst du vor Ort oder auf dieselbe IBAN zahlen. Die Anzahlung ist nicht erstattbar."},
+    "Poruka organizatoru (neobavezno)": {en:"Message to the organizer (optional)", de:"Nachricht an die Organisatorin (optional)"},
+    "Pošalji prijavu za Dan 1": {en:"Send registration for Day 1", de:"Anmeldung für Tag 1 senden"},
+    "Pošalji prijavu za Dan 2": {en:"Send registration for Day 2", de:"Anmeldung für Tag 2 senden"},
+    "Prijava primljena!": {en:"Registration received!", de:"Anmeldung erhalten!"},
+    // day2
+    "Nedjelja · 12. srpnja — Zvučna kupka": {en:"Sunday · 12 July — Sound bath", de:"Sonntag · 12. Juli — Klangbad"},
+    "Ne moraš znati meditirati. Ne moraš ništa raditi. Samo dođeš, legneš i prepustiš se zvuku.": {en:"You don't need to know how to meditate. You don't need to do anything. You simply come, lie down and surrender to the sound.", de:"Du musst nicht meditieren können. Du musst nichts tun. Du kommst einfach, legst dich hin und gibst dich dem Klang hin."},
+    "Uranjajuće iskustvo koje spaja glas i više od 30 instrumenata, kristalne i tibetanske zdjele, gong i mnoge druge, kako bi tijelo i živčani sustav doveli u duboko opuštanje i resetiranje. Otpuštanje napetosti i stresa, smirenje, osjećaj mentalnog i fizičkog reseta. Bez ikakvog potrebnog iskustva.": {en:"An immersive experience combining voice and more than 30 instruments, crystal and Tibetan bowls, gong and many others, to bring the body and nervous system into deep relaxation and reset. Releasing tension and stress, calming, a sense of mental and physical reset. No prior experience needed.", de:"Ein immersives Erlebnis, das Stimme und mehr als 30 Instrumente verbindet, Kristall- und tibetische Klangschalen, Gong und viele andere, um Körper und Nervensystem in tiefe Entspannung und einen Reset zu bringen. Lösen von Anspannung und Stress, Beruhigung, ein Gefühl von mentalem und körperlichem Reset. Keinerlei Vorerfahrung nötig."},
+    "Ponesi: prostirku za ležanje, dekicu, jastučić za glavu, udobnu odjeću i bocu vode.": {en:"Bring: a mat to lie on, a blanket, a small pillow, comfortable clothing and a bottle of water.", de:"Bring mit: eine Unterlage zum Liegen, eine Decke, ein kleines Kissen, bequeme Kleidung und eine Flasche Wasser."},
+    "Dobna granica 11+ uz pratnju odrasle osobe i dogovor. Mjesta su ograničena. Rezervacija se potvrđuje uplatom, nepovratnom osim u slučaju otkazivanja od strane organizatora. Moguć poklon bon.": {en:"Age limit 11+ accompanied by an adult and by arrangement. Places are limited. Reservation is confirmed by payment, non-refundable except if cancelled by the organizer. Gift voucher available.", de:"Altersgrenze 11+ in Begleitung eines Erwachsenen und nach Absprache. Die Plätze sind begrenzt. Die Reservierung wird mit der Zahlung bestätigt, nicht erstattbar außer bei Absage durch die Organisatorin. Geschenkgutschein möglich."},
+    "€30 po osobi": {en:"€30 per person", de:"€30 pro Person"},
+    "Cijena zvučne kupke s Noryom (Nina Kraljić) je €30 po osobi. Možeš platiti cijeli iznos unaprijed na IBAN ili na licu mjesta.": {en:"The sound bath with Norya (Nina Kraljić) costs €30 per person. You can pay the full amount in advance to the IBAN or on site.", de:"Das Klangbad mit Norya (Nina Kraljić) kostet €30 pro Person. Du kannst den vollen Betrag im Voraus auf die IBAN oder vor Ort zahlen."},
+    // facilitators
+    "Ples · Pokret · Medicine Wheel": {en:"Dance · Movement · Medicine Wheel", de:"Tanz · Bewegung · Medicine Wheel"},
+    "Ritam · Glazba · Uzemljenje": {en:"Rhythm · Music · Grounding", de:"Rhythmus · Musik · Erdung"},
+    "Glas · Sound Healing": {en:"Voice · Sound Healing", de:"Stimme · Sound Healing"},
+    "Dvadeset i pet godina istraživanja mudrosti pokreta. Pionirka 5Ritmova, inspirirana Movement Medicine pristupom. Biljana otvara i drži Medicine Wheel, vodi animaciju tijela i ples u krugu i u paru. Njezin prostor spaja jasnu strukturu i zdrave granice s fluidnošću, spontanošću i kokreacijom. Poziva na duboku prisutnost, slušanje tijela i povezivanje nevidljivog s fizičkim, bez ikakvog forsiranja.": {en:"Twenty-five years of exploring the wisdom of movement. A pioneer of 5Rhythms, inspired by the Movement Medicine approach. Biljana opens and holds the Medicine Wheel, leads body animation and dance in circle and in pairs. Her space joins clear structure and healthy boundaries with fluidity, spontaneity and co-creation. She invites deep presence, listening to the body and connecting the invisible with the physical, without any forcing.", de:"Fünfundzwanzig Jahre Erforschung der Weisheit der Bewegung. Pionierin der 5Rhythms, inspiriert vom Movement-Medicine-Ansatz. Biljana öffnet und hält das Medicine Wheel, leitet Körperanimation und Tanz im Kreis und zu zweit. Ihr Raum verbindet klare Struktur und gesunde Grenzen mit Fluidität, Spontaneität und Co-Kreation. Sie lädt zu tiefer Präsenz ein, zum Hören auf den Körper und zur Verbindung des Unsichtbaren mit dem Körperlichen, ganz ohne Zwang."},
+    "Perkusionist i osnivač Tribal Jam Orchestra. Njegova glazba diše u valovima, polako se diže iz duboke uzemljenosti, raste prema ekstatičnom vrhuncu i meko se spušta natrag u tišinu, tako da tijelo samo zna kada hodati, kada letjeti, a kada mirovati. Otvara dan dubokom, srčanom glazbom dobrodošlice, kroz jutro vodi ritam koji uzemljuje, a popodne prepušta sat slobodnog plesa u kojem osjeća energiju grupe i prati je bez riječi.": {en:"Percussionist and founder of the Tribal Jam Orchestra. His music breathes in waves, slowly rising from deep grounding, building toward an ecstatic peak and softly descending back into silence, so the body itself knows when to walk, when to fly and when to rest. He opens the day with deep, heartfelt welcome music, through the morning he leads a grounding rhythm, and in the afternoon he gives an hour of free dance in which he feels the energy of the group and follows it without words.", de:"Perkussionist und Gründer des Tribal Jam Orchestra. Seine Musik atmet in Wellen, steigt langsam aus tiefer Erdung, wächst zu einem ekstatischen Höhepunkt und sinkt sanft zurück in die Stille, sodass der Körper selbst weiß, wann er gehen, wann er fliegen und wann er ruhen soll. Er eröffnet den Tag mit tiefer, herzlicher Willkommensmusik, durch den Morgen führt er einen erdenden Rhythmus, und am Nachmittag überlässt er eine Stunde dem freien Tanz, in dem er die Energie der Gruppe spürt und ihr wortlos folgt."},
+    "Vjeruje da zvuk dotiče čovjeka na razinama koje nadilaze riječi. Nađeš je na Instagramu kao": {en:"She believes sound touches a person on levels beyond words. Find her on Instagram as", de:"Sie glaubt, dass Klang den Menschen auf Ebenen jenseits der Worte berührt. Du findest sie auf Instagram als"},
+    "Pjevačica, autorica i zvukoterapeutkinja, pobjednica The Voicea Hrvatska, godinama istražuje moć zvuka, glasa i vibracije. Kao vlasnica Studija Heka vodi zvučne kupke, zvučne masaže i holistic voice radionice. Educirana zvukoterapeutkinja, gong praktičarka i vokalna terapeutkinja, spaja stručno znanje, glazbeno iskustvo i intuiciju.": {en:"Singer, author and sound therapist, winner of The Voice Croatia, exploring the power of sound, voice and vibration for years. As the owner of Studio Heka she leads sound baths, sound massages and holistic voice workshops. A trained sound therapist, gong practitioner and vocal therapist, she combines expert knowledge, musical experience and intuition.", de:"Sängerin, Autorin und Klangtherapeutin, Gewinnerin von The Voice Kroatien, erforscht seit Jahren die Kraft von Klang, Stimme und Vibration. Als Inhaberin des Studio Heka leitet sie Klangbäder, Klangmassagen und Holistic-Voice-Workshops. Als ausgebildete Klangtherapeutin, Gong-Praktikerin und Stimmtherapeutin verbindet sie Fachwissen, musikalische Erfahrung und Intuition."},
+    // contact
+    "Pitanja? Piši Biljani": {en:"Questions? Write to Biljana", de:"Fragen? Schreib an Biljana"},
+    "Black Pen (Biljana Šare) je voditeljica ovog događaja i tu je za sva tvoja pitanja — o programu, smještaju, posebnim potrebama ili bilo čemu drugom.": {en:"Black Pen (Biljana Šare) is the facilitator of this event and is here for all your questions — about the program, accommodation, special needs or anything else.", de:"Black Pen (Biljana Šare) ist die Leiterin dieses Events und steht für all deine Fragen bereit — zum Programm, zur Unterkunft, zu besonderen Bedürfnissen oder allem anderen."},
+    "Direktan kontakt": {en:"Direct contact", de:"Direkter Kontakt"},
+    "Telefon": {en:"Phone", de:"Telefon"},
+    "Ili pošalji poruku ovdje": {en:"Or send a message here", de:"Oder sende hier eine Nachricht"},
+    "E-mail ili mobitel": {en:"E-mail or phone", de:"E-Mail oder Telefon"},
+    "Tvoje pitanje": {en:"Your question", de:"Deine Frage"},
+    "Pošalji pitanje": {en:"Send question", de:"Frage senden"},
+    "Poruka poslana!": {en:"Message sent!", de:"Nachricht gesendet!"},
+    "Ime i prezime": {en:"Full name", de:"Vor- und Nachname"},
+    "E-mail adresa": {en:"E-mail address", de:"E-Mail-Adresse"},
+    "Broj mobitela": {en:"Mobile number", de:"Handynummer"},
+    "Lokacija:": {en:"Location:", de:"Ort:"},
+    "Info:": {en:"Info:", de:"Info:"}
+  };
+
+  // title gloss per language
+  var GLOSS = {
+    hr: "",
+    en: "“Ples Duše” means Dance of the Soul",
+    de: "„Ples Duše“ bedeutet Tanz der Seele"
+  };
+
+  // success messages (innerHTML with <br>)
+  var HTML_DICT = {
+    "Hvala na prijavi za Dan 1 — Subotu, 11. srpnja.<br>Uplatom akontacije od €20 na IBAN potvrđuješ svoje mjesto.<br>Vidimo se u dvorani na Ravnicama! 🌊": {
+      en:"Thank you for registering for Day 1 — Saturday, 11 July.<br>A €20 deposit to the IBAN confirms your place.<br>See you at the Ravnice Hall! 🌊",
+      de:"Danke für deine Anmeldung für Tag 1 — Samstag, 11. Juli.<br>Mit einer Anzahlung von €20 auf die IBAN bestätigst du deinen Platz.<br>Wir sehen uns im Saal auf Ravnice! 🌊"},
+    "Hvala na prijavi za Dan 2 — Nedjelju, 12. srpnja.<br>Cijena je €30 po osobi — možeš platiti na IBAN ili na licu mjesta.<br>Vidimo se na zvučnom putovanju s Noryom (Nina Kraljić)! 🔔": {
+      en:"Thank you for registering for Day 2 — Sunday, 12 July.<br>The price is €30 per person — pay to the IBAN or on site.<br>See you on the sound journey with Norya (Nina Kraljić)! 🔔",
+      de:"Danke für deine Anmeldung für Tag 2 — Sonntag, 12. Juli.<br>Der Preis beträgt €30 pro Person — zahlbar auf die IBAN oder vor Ort.<br>Wir sehen uns auf der Klangreise mit Norya (Nina Kraljić)! 🔔"},
+    "Biljana će ti se javiti što je prije moguće.<br>Do tada — vidimo se na plesnom podiju! 🌀": {
+      en:"Biljana will get back to you as soon as possible.<br>Until then — see you on the dance floor! 🌀",
+      de:"Biljana meldet sich so bald wie möglich bei dir.<br>Bis dahin — wir sehen uns auf der Tanzfläche! 🌀"}
+  };
+
+  // placeholders
+  var PH_DICT = {
+    "npr. Ana Horvat": {en:"e.g. Ana Horvat", de:"z. B. Ana Horvat"},
+    "vas@email.com": {en:"you@email.com", de:"du@email.com"},
+    "091 123 4567": {en:"091 123 4567", de:"091 123 4567"},
+    "Posebne napomene, prehrambene potrebe, pitanja…": {en:"Special notes, dietary needs, questions…", de:"Besondere Hinweise, Ernährungsbedürfnisse, Fragen…"},
+    "vas@email.com ili 091 …": {en:"you@email.com or 091 …", de:"du@email.com oder 091 …"},
+    "Pitaj sve što te zanima…": {en:"Ask anything you'd like to know…", de:"Frag alles, was dich interessiert…"}
+  };
+
+  // store original HR text on first run so we can switch back
+  var nodes = [];
+  function collect(root){
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null);
+    var n;
+    while((n = walker.nextNode())){
+      var t = n.nodeValue.trim();
+      if(t && DICT[t]) nodes.push(n);
+    }
+  }
+
+  function apply(lang){
+    // text nodes
+    nodes.forEach(function(n){
+      var key = n._hr || (n._hr = n.nodeValue.trim());
+      var lead = n.nodeValue.match(/^\s*/)[0];
+      var tail = n.nodeValue.match(/\s*$/)[0];
+      n.nodeValue = lead + (lang==='hr' ? key : (DICT[key][lang]||key)) + tail;
+    });
+    // html blocks (success messages)
+    Object.keys(HTML_DICT).forEach(function(hr){
+      document.querySelectorAll('.success-box p').forEach(function(el){
+        var cur = el.getAttribute('data-hr') || el.innerHTML.trim();
+        if(cur === hr){
+          el.setAttribute('data-hr', hr);
+          el.innerHTML = (lang==='hr') ? hr : (HTML_DICT[hr][lang]||hr);
+        }
+      });
+    });
+    // placeholders
+    document.querySelectorAll('[placeholder]').forEach(function(el){
+      var hr = el.getAttribute('data-ph-hr') || el.getAttribute('placeholder');
+      if(PH_DICT[hr]){
+        el.setAttribute('data-ph-hr', hr);
+        el.setAttribute('placeholder', lang==='hr' ? hr : (PH_DICT[hr][lang]||hr));
+      }
+    });
+    // title gloss
+    var g = document.getElementById('title-gloss');
+    if(g){ g.textContent = GLOSS[lang]; g.style.display = GLOSS[lang] ? 'block' : 'none'; }
+    // switch active marker
+    document.querySelectorAll('#lang-switch span[data-lang]').forEach(function(s){
+      s.classList.toggle('active', s.getAttribute('data-lang')===lang);
+    });
+    document.documentElement.lang = lang;
+    try{ document.cookie = "pd_lang="+lang+";path=/;max-age="+(60*60*24*365); }catch(e){}
+  }
+
+  function getCookieLang(){
+    var m = document.cookie.match(/(?:^|;\s*)pd_lang=(hr|en|de)/);
+    return m ? m[1] : null;
+  }
+
+  document.addEventListener('DOMContentLoaded', function(){
+    collect(document.body);
+    var ls = document.getElementById('lang-switch');
+    if(ls){
+      ls.querySelectorAll('span[data-lang]').forEach(function(s){
+        s.addEventListener('click', function(){ apply(s.getAttribute('data-lang')); });
+      });
+    }
+    var saved = getCookieLang() || 'hr';
+    apply(saved);
+  });
+})();
+</script>
+
 </body>
 </html>
