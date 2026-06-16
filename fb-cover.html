@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Ples Duše — Facebook Cover</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;padding:30px;font-family:'Outfit',sans-serif}
+.cover{
+  position:relative;width:1640px;height:924px;overflow:hidden;
+  background:#0a1411;box-shadow:0 30px 80px rgba(0,0,0,.6);
+}
+@media(max-width:1700px){.cover{transform:scale(.62);transform-origin:top center}}
+.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 38%}
+.veil{position:absolute;inset:0;background:
+  linear-gradient(90deg,rgba(10,20,17,.86) 0%,rgba(10,20,17,.45) 38%,rgba(10,20,17,.45) 62%,rgba(10,20,17,.86) 100%),
+  linear-gradient(180deg,rgba(10,20,17,.5) 0%,rgba(10,20,17,0) 30%,rgba(10,20,17,0) 60%,rgba(10,20,17,.7) 100%)}
+/* facebook safe zone ~ centered 1090x600; keep text inside */
+.safe{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  width:1090px;height:640px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.kick{font-size:17px;font-weight:400;letter-spacing:.34em;text-transform:uppercase;color:var(--c,#f0e6cf);color:#f0e6cf;text-shadow:0 1px 6px rgba(0,0,0,.9)}
+h1{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:118px;letter-spacing:.06em;color:#f2b75c;line-height:.95;margin:8px 0 4px;text-shadow:0 3px 30px rgba(0,0,0,.6)}
+.gloss{font-style:italic;font-size:22px;color:#7fd0ea;letter-spacing:.04em;margin-bottom:18px;text-shadow:0 1px 8px rgba(0,0,0,.7)}
+.line{width:90px;height:1px;background:#f2b75c;opacity:.6;margin:0 auto 18px}
+.meta{font-size:22px;font-weight:400;letter-spacing:.06em;color:#f0e6cf;text-shadow:0 1px 8px rgba(0,0,0,.85)}
+.meta b{color:#7fd0ea;font-weight:600}
+.fac{margin-top:14px;font-size:16px;letter-spacing:.14em;text-transform:uppercase;color:rgba(240,230,207,.92);text-shadow:0 1px 8px rgba(0,0,0,.85)}
+.url{margin-top:26px;display:inline-block;font-size:19px;font-weight:600;letter-spacing:.08em;color:#0a1411;background:#f2b75c;padding:11px 26px;border-radius:40px;box-shadow:0 6px 22px rgba(0,0,0,.4)}
+</style>
+</head>
+<body>
+<div class="cover">
+  <img class="bg" src="https://i.ibb.co/CsP2JK1J/web-poster-bgd.png" alt="">
+  <div class="veil"></div>
+  <div class="safe">
+    <div class="kick">A meditative ritual gathering · movement · rhythm · voice</div>
+    <h1>Ples Duše</h1>
+    <div class="gloss">Dance of the Soul</div>
+    <div class="line"></div>
+    <div class="meta">Zadar, Croatia · <b>11 – 12 July 2026</b></div>
+    <div class="fac">Black Pen · DJ Mantra · Norya</div>
+    <div class="url">ples-duse.org</div>
+  </div>
+</div>
+</body>
+</html>
