@@ -39,6 +39,11 @@ h1{font-family:'Outfit',sans-serif;font-weight:600;font-size:74px;letter-spacing
 .foot-price{font-size:12.5px;color:#f0e6cf;opacity:.85;margin-top:5px;letter-spacing:.03em}
 .qr{width:92px;height:92px;background:#f0e6cf;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .qr img{width:82px;height:82px}
+#lang-switch{position:absolute;top:14px;right:16px;z-index:6;font-family:'Courier New',monospace;font-size:12px;letter-spacing:.05em;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.7);display:flex;gap:6px;align-items:center;user-select:none}
+#lang-switch span[data-lang]{cursor:pointer;opacity:.8;padding-bottom:1px;border-bottom:1px solid transparent}
+#lang-switch span[data-lang]:hover{opacity:1;border-bottom-color:#fff}
+#lang-switch span[data-lang].active{opacity:1;color:#f2b75c;font-weight:700}
+#lang-switch .sep{opacity:.4}
 </style>
 </head>
 <body>
@@ -47,36 +52,37 @@ h1{font-family:'Outfit',sans-serif;font-weight:600;font-size:74px;letter-spacing
   <div class="shade-top"></div>
   <div class="shade-bot"></div>
   <div class="content">
-    <div class="kicker">Meditativno ritualni susret kroz pokret, ritam i glas</div>
+    <div id="lang-switch"><span data-lang="hr" class="active">HR</span><span class="sep">|</span><span data-lang="en">ENG</span><span class="sep">|</span><span data-lang="de">GER</span></div>
+    <div class="kicker" id="t-kicker">Meditativno ritualni susret kroz pokret, ritam i glas</div>
     <h1>PLES DUŠE</h1>
-    <div class="gloss">Dance of the Soul</div>
-    <div class="meta">Zadar · Dvorana na Ravnicama<br><b>11. i 12. srpnja 2026.</b></div>
+    <div class="gloss" id="t-gloss">Dance of the Soul</div>
+    <div class="meta" id="t-meta">Zadar · Dvorana na Ravnicama<br><b>11. i 12. srpnja 2026.</b></div>
     <div class="spacer"></div>
     <div class="facs">
       <div class="fac">
         <img src="https://i.ibb.co/1tZkYZVm/biljana-face-reference.png" alt="Black Pen">
         <div class="n">Black Pen</div>
         <div class="r">Biljana Šare</div>
-        <div class="d">ples i pokret</div>
+        <div class="d" id="t-role1">ples i pokret</div>
       </div>
       <div class="fac">
         <img src="https://i.ibb.co/Fkmx8C8D/Screenshot-20260613-103638.png" alt="DJ Mantra">
         <div class="n">DJ Mantra</div>
         <div class="r">Marko Boško</div>
-        <div class="d">ritam i glazba</div>
+        <div class="d" id="t-role2">ritam i glazba</div>
       </div>
       <div class="fac">
         <img src="https://i.ibb.co/8tV7Wp6/nina-kraljic-instagram.jpg" alt="Norya">
         <div class="n">Norya</div>
         <div class="r">Nina Kraljić</div>
-        <div class="d">glas i zvuk</div>
+        <div class="d" id="t-role3">glas i zvuk</div>
       </div>
     </div>
     <div class="footer">
       <div class="foot-left">
-        <div class="foot-label">Prijave i program</div>
+        <div class="foot-label" id="t-footlabel">Prijave i program</div>
         <div class="foot-link">ples-duse.org</div>
-        <div class="foot-price">od €80 · rana prijava do 1. srpnja</div>
+        <div class="foot-price" id="t-price">od €80 · rana prijava do 1. srpnja</div>
       </div>
       <div class="qr">
         <img src="https://api.qrserver.com/v1/create-qr-code/?size=240x240&color=0a1411&bgcolor=f0e6cf&data=https%3A%2F%2Fples-duse.org" alt="QR">
@@ -84,5 +90,34 @@ h1{font-family:'Outfit',sans-serif;font-weight:600;font-size:74px;letter-spacing
     </div>
   </div>
 </div>
+<script>
+(function(){
+  var T={
+    kicker:{hr:"Meditativno ritualni susret kroz pokret, ritam i glas",en:"A meditative ritual gathering through movement, rhythm and voice",de:"Eine meditativ-rituelle Begegnung durch Bewegung, Rhythmus und Stimme"},
+    gloss:{hr:"Dance of the Soul",en:"",de:"Tanz der Seele"},
+    meta:{hr:"Zadar · Dvorana na Ravnicama<br><b>11. i 12. srpnja 2026.</b>",en:"Zadar · Ravnice Hall<br><b>11–12 July 2026</b>",de:"Zadar · Saal auf Ravnice<br><b>11.–12. Juli 2026</b>"},
+    role1:{hr:"ples i pokret",en:"dance & movement",de:"Tanz & Bewegung"},
+    role2:{hr:"ritam i glazba",en:"rhythm & music",de:"Rhythmus & Musik"},
+    role3:{hr:"glas i zvuk",en:"voice & sound",de:"Stimme & Klang"},
+    footlabel:{hr:"Prijave i program",en:"Registration & program",de:"Anmeldung & Programm"},
+    price:{hr:"od €80 · rana prijava do 1. srpnja",en:"from €80 · early bird until 1 July",de:"ab €80 · Frühbucher bis 1. Juli"}
+  };
+  function set(id,html){var el=document.getElementById('t-'+id);if(el)el.innerHTML=html;}
+  function apply(l){
+    set('kicker',T.kicker[l]);set('meta',T.meta[l]);
+    set('role1',T.role1[l]);set('role2',T.role2[l]);set('role3',T.role3[l]);
+    set('footlabel',T.footlabel[l]);set('price',T.price[l]);
+    var g=document.getElementById('t-gloss');
+    if(g){g.innerHTML=T.gloss[l];g.style.display=T.gloss[l]?'block':'none';}
+    document.querySelectorAll('#lang-switch span[data-lang]').forEach(function(s){
+      s.classList.toggle('active',s.getAttribute('data-lang')===l);});
+    try{localStorage.setItem('pd_poster_lang',l);}catch(e){}
+  }
+  document.querySelectorAll('#lang-switch span[data-lang]').forEach(function(s){
+    s.addEventListener('click',function(){apply(s.getAttribute('data-lang'));});});
+  var saved='hr';try{var v=localStorage.getItem('pd_poster_lang');if(v==='hr'||v==='en'||v==='de')saved=v;}catch(e){}
+  apply(saved);
+})();
+</script>
 </body>
 </html>
