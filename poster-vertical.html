@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+<meta charset="UTF-8">
+<title>Ples Duše — Vertical Poster 9:16</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#1a1a1a;display:flex;justify-content:center;align-items:flex-start;padding:30px;font-family:'Outfit',sans-serif}
+/* 1080x1920 shown at 50% = 540x960; screenshot at 2x device scale = full res */
+.poster{
+  position:relative;width:540px;height:960px;overflow:hidden;
+  border-radius:6px;box-shadow:0 30px 80px rgba(0,0,0,.6);background:#0a1411;
+}
+.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 30%}
+.shade-top{position:absolute;top:0;left:0;right:0;height:32%;
+  background:linear-gradient(180deg,rgba(10,20,17,.88) 0%,rgba(10,20,17,.4) 60%,rgba(10,20,17,0) 100%)}
+.shade-bot{position:absolute;bottom:0;left:0;right:0;height:52%;
+  background:linear-gradient(0deg,rgba(10,20,17,.97) 0%,rgba(10,20,17,.85) 45%,rgba(10,20,17,.3) 80%,rgba(10,20,17,0) 100%)}
+.content{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;text-align:center;padding:46px 34px 40px}
+.kicker{font-size:12px;font-weight:400;letter-spacing:.26em;text-transform:uppercase;color:#f0e6cf;opacity:.95;text-shadow:0 1px 6px rgba(0,0,0,.8)}
+h1{font-family:'Outfit',sans-serif;font-weight:600;font-size:74px;letter-spacing:.10em;color:#f2b75c;
+  margin:14px 0 12px;line-height:1;text-shadow:0 3px 26px rgba(0,0,0,.7)}
+.gloss{font-size:18px;font-style:italic;color:#7fd0ea;letter-spacing:.04em;margin-top:-4px;margin-bottom:14px;text-shadow:0 1px 8px rgba(0,0,0,.7)}
+.meta{font-size:15px;font-weight:500;letter-spacing:.10em;text-transform:uppercase;color:#f0e6cf;line-height:1.7;text-shadow:0 1px 8px rgba(0,0,0,.85)}
+.meta b{color:#7fd0ea;font-weight:600}
+.spacer{flex:1}
+.facs{display:flex;justify-content:center;gap:20px;margin-bottom:26px}
+.fac{display:flex;flex-direction:column;align-items:center;width:150px}
+.fac img{width:118px;height:118px;border-radius:50%;object-fit:cover;border:3px solid #f2b75c;box-shadow:0 8px 26px rgba(0,0,0,.6)}
+.fac .n{margin-top:12px;font-size:17px;font-weight:600;color:#f2b75c;letter-spacing:.02em}
+.fac .r{font-size:12.5px;font-weight:300;color:#f0e6cf;opacity:.88;margin-top:2px}
+.fac .d{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#7fd0ea;margin-top:6px}
+.footer{display:flex;align-items:center;gap:20px;width:100%;justify-content:center;
+  border-top:1px solid rgba(242,183,92,.3);padding-top:22px}
+.foot-left{text-align:left}
+.foot-label{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#f0e6cf;opacity:.75}
+.foot-link{font-size:20px;font-weight:600;color:#f2b75c;margin-top:4px;letter-spacing:.02em}
+.foot-price{font-size:12.5px;color:#f0e6cf;opacity:.85;margin-top:5px;letter-spacing:.03em}
+.qr{width:92px;height:92px;background:#f0e6cf;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.qr img{width:82px;height:82px}
+</style>
+</head>
+<body>
+<div class="poster">
+  <img class="bg" src="https://i.ibb.co/CsP2JK1J/web-poster-bgd.png" alt="">
+  <div class="shade-top"></div>
+  <div class="shade-bot"></div>
+  <div class="content">
+    <div class="kicker">Meditativno ritualni susret kroz pokret, ritam i glas</div>
+    <h1>PLES DUŠE</h1>
+    <div class="gloss">Dance of the Soul</div>
+    <div class="meta">Zadar · Dvorana na Ravnicama<br><b>11. i 12. srpnja 2026.</b></div>
+    <div class="spacer"></div>
+    <div class="facs">
+      <div class="fac">
+        <img src="https://i.ibb.co/1tZkYZVm/biljana-face-reference.png" alt="Black Pen">
+        <div class="n">Black Pen</div>
+        <div class="r">Biljana Šare</div>
+        <div class="d">ples i pokret</div>
+      </div>
+      <div class="fac">
+        <img src="https://i.ibb.co/Fkmx8C8D/Screenshot-20260613-103638.png" alt="DJ Mantra">
+        <div class="n">DJ Mantra</div>
+        <div class="r">Marko Boško</div>
+        <div class="d">ritam i glazba</div>
+      </div>
+      <div class="fac">
+        <img src="https://i.ibb.co/8tV7Wp6/nina-kraljic-instagram.jpg" alt="Norya">
+        <div class="n">Norya</div>
+        <div class="r">Nina Kraljić</div>
+        <div class="d">glas i zvuk</div>
+      </div>
+    </div>
+    <div class="footer">
+      <div class="foot-left">
+        <div class="foot-label">Prijave i program</div>
+        <div class="foot-link">ples-duse.org</div>
+        <div class="foot-price">od €80 · rana prijava do 1. srpnja</div>
+      </div>
+      <div class="qr">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=240x240&color=0a1411&bgcolor=f0e6cf&data=https%3A%2F%2Fples-duse.org" alt="QR">
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
