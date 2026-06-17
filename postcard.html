@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Ples Duše — Postcard Design Guide</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='32' fill='%230a1411'/%3E%3Ccircle cx='32' cy='32' r='3' fill='%23fff3d6'/%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--gold:#f2b75c;--cream:#f0e6cf;--blue:#7fd0ea;--bg:#0a1411}
+body{background:radial-gradient(ellipse at 50% -10%,#14302a 0%,#0a1411 55%,#070f0c 100%) fixed,#0a1411;color:var(--cream);font-family:'Outfit',sans-serif;font-weight:300;min-height:100vh;padding:32px 16px 64px}
+.wrap{max-width:1000px;margin:0 auto}
+.page-head{text-align:center;margin-bottom:8px}
+.page-head .k{font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--blue);opacity:.8}
+.page-head h1{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:40px;color:var(--gold);letter-spacing:.04em;margin:6px 0}
+.page-head p{font-size:13.5px;color:rgba(240,230,207,.6);max-width:600px;margin:0 auto;line-height:1.7}
+.note{background:rgba(127,208,234,.08);border:.5px solid rgba(127,208,234,.3);border-radius:12px;padding:14px 18px;font-size:13px;line-height:1.8;color:rgba(240,230,207,.82);margin:24px 0 36px}
+.note b{color:var(--blue)}
+.side-label{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);text-align:center;margin:30px 0 14px}
+
+/* A6 landscape 148x105mm -> shown at 620x440 (1.41:1) */
+.card{position:relative;width:620px;height:440px;margin:0 auto;border-radius:8px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.55);background:#0a1411}
+
+/* FRONT */
+.front .bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 28%}
+.front .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,20,17,.8) 0%,rgba(10,20,17,.15) 32%,rgba(10,20,17,.15) 60%,rgba(10,20,17,.92) 100%)}
+.front .c{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;text-align:center;padding:26px 30px}
+.front .kick{font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:var(--cream);opacity:.92;text-shadow:0 1px 5px rgba(0,0,0,.9)}
+.front h2{font-family:'Outfit',sans-serif;font-weight:600;font-size:50px;letter-spacing:.08em;color:var(--gold);margin:6px 0 2px;line-height:1;text-shadow:0 2px 16px rgba(0,0,0,.7)}
+.front .gloss{font-style:italic;font-size:14px;color:var(--blue);text-shadow:0 1px 6px rgba(0,0,0,.8)}
+.front .spacer{flex:1}
+.front .meta{font-size:13px;letter-spacing:.06em;color:var(--cream);text-shadow:0 1px 6px rgba(0,0,0,.9);font-weight:500}
+.front .meta b{color:var(--blue)}
+.front .fac{margin-top:6px;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:rgba(240,230,207,.9);text-shadow:0 1px 6px rgba(0,0,0,.9)}
+
+/* BACK */
+.back{background:linear-gradient(160deg,#0c2620 0%,#0a1411 60%,#070f0c 100%);display:flex;padding:28px}
+.back .left{flex:1.3;padding-right:22px;display:flex;flex-direction:column}
+.back h3{font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--gold);margin-bottom:2px}
+.back .glossb{font-style:italic;font-size:13px;color:var(--blue);margin-bottom:12px}
+.back p{font-size:11.5px;line-height:1.7;color:rgba(240,230,207,.82);margin-bottom:10px}
+.back .prog{font-size:11px;line-height:1.65;color:rgba(240,230,207,.72)}
+.back .prog b{color:var(--cream)}
+.back .right{flex:1;border-left:1px dashed rgba(242,183,92,.3);padding-left:22px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.back .qr{width:128px;height:128px;background:var(--cream);border-radius:10px;display:flex;align-items:center;justify-content:center}
+.back .qr img{width:114px;height:114px}
+.back .scan{margin-top:12px;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--blue)}
+.back .url{margin-top:4px;font-size:15px;font-weight:600;color:var(--gold)}
+.back .foot{margin-top:auto;font-size:9.5px;letter-spacing:.04em;color:rgba(240,230,207,.5);line-height:1.6}
+
+.specs{margin-top:46px;background:rgba(255,255,255,.03);border:.5px solid rgba(255,255,255,.1);border-radius:14px;padding:22px 24px}
+.specs h3{font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--gold);margin-bottom:14px}
+.specs ul{list-style:none}
+.specs li{font-size:13px;line-height:1.9;color:rgba(240,230,207,.82);padding-left:18px;position:relative}
+.specs li::before{content:"•";position:absolute;left:0;color:var(--gold)}
+.specs b{color:var(--cream)}
+.dl{margin-top:26px;display:flex;flex-wrap:wrap;gap:12px}
+.dl a{display:flex;align-items:center;gap:8px;background:rgba(242,183,92,.1);border:.5px solid rgba(242,183,92,.3);color:var(--gold);text-decoration:none;font-size:12.5px;font-weight:500;padding:10px 16px;border-radius:10px}
+.dl a:hover{background:rgba(242,183,92,.2)}
+.foot{text-align:center;margin-top:40px;font-size:11.5px;color:rgba(240,230,207,.4)}
+.foot a{color:var(--blue)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="page-head">
+    <div class="k">Print design guide</div>
+    <h1>Postcard</h1>
+    <p>A physical postcard to hand out and leave in cafés, studios and shops. Below is a ready visual example of both sides at the correct proportions, with full specs underneath. Replicate it in Canva, or use the Canva design I prepared.</p>
+  </div>
+
+  <div class="note">
+    <b>Format:</b> A6 landscape, <b>148 × 105 mm</b> (the standard postcard size — easy to print, easy to mail, fits any rack). Add <b>3 mm bleed</b> on every side for printing (so set canvas to 154 × 111 mm) and keep all text <b>5 mm inside</b> the edges. Print at <b>300 DPI</b>, full colour, both sides.
+  </div>
+
+  <!-- FRONT -->
+  <div class="side-label">Front — the image side</div>
+  <div class="card front">
+    <img class="bg" src="https://i.ibb.co/CsP2JK1J/web-poster-bgd.png" alt="">
+    <div class="shade"></div>
+    <div class="c">
+      <div class="kick">A meditative ritual gathering · movement · rhythm · voice</div>
+      <h2>PLES DUŠE</h2>
+      <div class="gloss">Dance of the Soul</div>
+      <div class="spacer"></div>
+      <div class="meta">Zadar, Croatia · <b>11–12 July 2026</b></div>
+      <div class="fac">Black Pen · DJ Mantra · Norya (Nina Kraljić)</div>
+    </div>
+  </div>
+
+  <!-- BACK -->
+  <div class="side-label">Back — info & QR</div>
+  <div class="card back">
+    <div class="left">
+      <h3>Ples Duše</h3>
+      <div class="glossb">Dance of the Soul · Zadar · 11–12 July 2026</div>
+      <p>Two days of movement, rhythm and voice, right above Kolovare beach. No choreography, no words — just the body and the space we create together.</p>
+      <div class="prog">
+        <b>Sat 11 July</b> · full-day gathering · Medicine Wheel, free dance, angelic & shamanic sound healing<br>
+        <b>Sun 12 July</b> · sound bath with Norya<br>
+        <b>From €80</b> · early bird until 1 July
+      </div>
+      <div class="foot">Special guest: Norya — Nina Kraljić, the voice of Croatia<br>Ravnice Hall, Zadar · info: +385 91 920 3123</div>
+    </div>
+    <div class="right">
+      <div class="qr">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&color=0a1411&bgcolor=f0e6cf&data=https%3A%2F%2Fples-duse.org" alt="QR">
+      </div>
+      <div class="scan">Scan to register</div>
+      <div class="url">ples-duse.org</div>
+    </div>
+  </div>
+
+  <!-- SPECS -->
+  <div class="specs">
+    <h3>Design specs for Canva</h3>
+    <ul>
+      <li>Canvas: <b>154 × 111 mm</b> landscape (148 × 105 mm + 3 mm bleed all sides), <b>300 DPI</b></li>
+      <li>Colours: gold <b>#F2B75C</b> · cream <b>#F0E6CF</b> · blue <b>#7FD0EA</b> · dark forest <b>#0A1411</b></li>
+      <li>Fonts: title in a clean sans (Outfit / Montserrat), body in the same sans light; keep it consistent with the website</li>
+      <li>Front: full-bleed dancer image, title centered, date + facilitators at the bottom over a dark gradient so text stays readable</li>
+      <li>Back: short text on the left, <b>QR code on the right</b> linking to ples-duse.org, "Scan to register"</li>
+      <li>QR: dark code on cream background, minimum <b>25 × 25 mm</b> so phones scan it reliably</li>
+      <li>Keep all text at least <b>5 mm</b> away from the trim edge</li>
+    </ul>
+    <div class="dl">
+      <a href="https://i.ibb.co/CsP2JK1J/web-poster-bgd.png" target="_blank" download>⬇ Front image (dancer)</a>
+      <a href="https://api.qrserver.com/v1/create-qr-code/?size=1000x1000&color=0a1411&bgcolor=f0e6cf&data=https%3A%2F%2Fples-duse.org" target="_blank" download>⬇ QR code (hi-res)</a>
+    </div>
+  </div>
+
+  <div class="foot">Internal design guide · not indexed · <a href="https://ples-duse.org">ples-duse.org</a></div>
+</div>
+</body>
+</html>
