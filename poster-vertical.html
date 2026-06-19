@@ -18,7 +18,7 @@ body{background:#1a1a1a;display:flex;justify-content:center;align-items:flex-sta
 .shade-bot{position:absolute;bottom:0;left:0;right:0;height:52%;
   background:linear-gradient(0deg,rgba(10,20,17,.97) 0%,rgba(10,20,17,.85) 45%,rgba(10,20,17,.3) 80%,rgba(10,20,17,0) 100%)}
 .content{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;text-align:center;padding:46px 34px 40px}
-.kicker{font-size:12px;font-weight:400;letter-spacing:.26em;text-transform:uppercase;color:#f0e6cf;opacity:.95;text-shadow:0 1px 6px rgba(0,0,0,.8)}
+.kicker{font-size:10px;font-weight:400;letter-spacing:.14em;text-transform:uppercase;color:#f0e6cf;opacity:.95;text-shadow:0 1px 6px rgba(0,0,0,.8);white-space:nowrap}
 h1{font-family:'Outfit',sans-serif;font-weight:600;font-size:54px;letter-spacing:.04em;color:#f2b75c;
   margin:14px 0 12px;line-height:1.05;text-shadow:0 3px 26px rgba(0,0,0,.7);white-space:nowrap}
 .gloss{font-size:18px;font-style:italic;color:#7fd0ea;letter-spacing:.04em;margin-top:-4px;margin-bottom:14px;text-shadow:0 1px 8px rgba(0,0,0,.7)}
@@ -102,10 +102,14 @@ h1{font-family:'Outfit',sans-serif;font-weight:600;font-size:54px;letter-spacing
     price:{hr:"od €80 · rana prijava do 1. srpnja",en:"from €80 · early bird until 1 July",de:"ab €80 · Frühbucher bis 1. Juli"}
   };
   function set(id,html){var el=document.getElementById('t-'+id);if(el)el.innerHTML=html;}
+  var TITLE_SIZE={hr:"74px",en:"54px",de:"58px"};
+  var KICK_SIZE={hr:"11px",en:"10px",de:"8.5px"};
   function apply(l){
     set('title',T.title[l]);set('kicker',T.kicker[l]);set('meta',T.meta[l]);
     set('role1',T.role1[l]);set('role2',T.role2[l]);set('role3',T.role3[l]);
     set('footlabel',T.footlabel[l]);set('price',T.price[l]);
+    var ti=document.getElementById('t-title'); if(ti) ti.style.fontSize=TITLE_SIZE[l];
+    var ki=document.getElementById('t-kicker'); if(ki) ki.style.fontSize=KICK_SIZE[l];
     document.querySelectorAll('#lang-switch span[data-lang]').forEach(function(s){
       s.classList.toggle('active',s.getAttribute('data-lang')===l);});
     try{localStorage.setItem('pd_poster_lang',l);}catch(e){}
