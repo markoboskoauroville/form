@@ -114,8 +114,11 @@ h1{font-family:'Outfit',sans-serif;font-weight:600;font-size:64px;letter-spacing
   }
   function fitAll(){
     var content=document.querySelector('.content');
-    var avail=content ? content.clientWidth : 470; // already minus padding
-    fitText(document.getElementById('t-title'), avail, 74, 18);
+    var cs=content?getComputedStyle(content):null;
+    var padL=cs?parseFloat(cs.paddingLeft)||0:34;
+    var padR=cs?parseFloat(cs.paddingRight)||0:34;
+    var avail=(content?content.clientWidth:540)-padL-padR-8; // minus padding + 8px safety
+    fitText(document.getElementById('t-title'), avail, 74, 16);
     fitText(document.getElementById('t-kicker'), avail, 12, 6);
   }
   function apply(l){
@@ -129,7 +132,9 @@ h1{font-family:'Outfit',sans-serif;font-weight:600;font-size:64px;letter-spacing
   }
   window.addEventListener('resize', fitAll);
   if(document.fonts && document.fonts.ready){ document.fonts.ready.then(fitAll); }
-  setTimeout(fitAll, 300);
+  setTimeout(fitAll, 200);
+  setTimeout(fitAll, 600);
+  setTimeout(fitAll, 1200);
   document.querySelectorAll('#lang-switch span[data-lang]').forEach(function(s){
     s.addEventListener('click',function(){apply(s.getAttribute('data-lang'));});});
   var saved='hr';try{var v=localStorage.getItem('pd_poster_lang');if(v==='hr'||v==='en'||v==='de')saved=v;}catch(e){}
