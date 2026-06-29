@@ -208,6 +208,20 @@ textarea{resize:vertical;min-height:90px;line-height:1.65}
   transition:background .18s;white-space:nowrap
 }
 .iban-copy-btn:hover{background:rgba(242,183,92,.1)}
+.paybar{
+  margin-top:1rem;border:.5px solid var(--border);border-radius:10px;overflow:hidden;
+  background:linear-gradient(160deg,rgba(242,183,92,.07),rgba(127,208,234,.05))
+}
+.paybar-head{
+  display:flex;align-items:center;gap:8px;padding:11px 14px 9px;
+  font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-weight:600
+}
+.paybar-head .dot{width:6px;height:6px;border-radius:50%;background:#7fd0ea;box-shadow:0 0 8px #7fd0ea}
+.paybar-img{
+  background:#f0e6cf;margin:0 14px;border-radius:6px;padding:14px 16px;display:flex;justify-content:center
+}
+.paybar-img img{width:100%;max-width:340px;height:auto;display:block;image-rendering:crisp-edges}
+.paybar-note{padding:9px 14px 13px;font-size:11px;color:rgba(255,255,255,.45);line-height:1.6}
 .deposit-note{
   margin-top:.7rem;font-size:11.5px;color:rgba(255,255,255,.38);line-height:1.7;
   font-family:'DM Sans',sans-serif
@@ -466,6 +480,11 @@ textarea{resize:vertical;min-height:90px;line-height:1.65}
         <span class="iban-text">HR82 2402 0061 1406 4628 7</span>
         <button type="button" class="iban-copy-btn" onclick="copyIBAN(this)">Kopiraj</button>
       </div>
+      <div class="paybar">
+        <div class="paybar-head"><span class="dot"></span><span id="t-scanpay">Skeniraj za plaćanje u bankovnoj aplikaciji</span></div>
+        <div class="paybar-img"><img src="QRCODE.jpg" alt="Barkod za plaćanje (HUB-3)" loading="lazy"></div>
+        <p class="paybar-note" id="t-scanpay-note">Otvori svoju mobilnu bankovnu aplikaciju, odaberi plaćanje skeniranjem i usmjeri kameru na barkod. Iznos i podaci se ispunjavaju automatski.</p>
+      </div>
       <p class="deposit-note">Cijena zvučne kupke s Noryom (Nina Kraljić) je €30 po osobi. Možeš platiti cijeli iznos unaprijed na IBAN ili na licu mjesta.</p>
     </div>
 
@@ -649,7 +668,11 @@ document.querySelectorAll('.radio-opt').forEach(function(opt) {
 });
 
 function copyIBAN(btn) {
-  navigator.clipboard.writeText('HR82240200611406462870').then(function() {
+  // read the IBAN shown right next to this button, strip spaces — never drifts from what's displayed
+  var wrap = btn.closest('.iban-copy');
+  var shown = wrap ? wrap.querySelector('.iban-text').textContent : 'HR82 2402 0061 1406 4628 7';
+  var iban = shown.replace(/\s+/g, '');
+  navigator.clipboard.writeText(iban).then(function() {
     btn.textContent = 'Kopirano!';
     setTimeout(function(){ btn.textContent = 'Kopiraj'; }, 2000);
   }).catch(function() {
@@ -784,6 +807,8 @@ document.getElementById('contact-form').addEventListener('submit', function(e){
     "Akontacija (nepovratna)": {en:"Deposit (non-refundable)", de:"Anzahlung (nicht erstattbar)"},
     "Cijena po osobi": {en:"Price per person", de:"Preis pro Person"},
     "Kopiraj": {en:"Copy", de:"Kopieren"},
+    "Skeniraj za plaćanje u bankovnoj aplikaciji": {en:"Scan to pay in your banking app", de:"Zum Bezahlen in deiner Banking-App scannen"},
+    "Otvori svoju mobilnu bankovnu aplikaciju, odaberi plaćanje skeniranjem i usmjeri kameru na barkod. Iznos i podaci se ispunjavaju automatski.": {en:"Open your mobile banking app, choose pay-by-scan and point the camera at the barcode. The amount and details fill in automatically.", de:"Öffne deine mobile Banking-App, wähle Zahlen-per-Scan und richte die Kamera auf den Barcode. Betrag und Daten werden automatisch ausgefüllt."},
     "Akontacijom od €20 potvrđuješ prijavu. Ostatak iznosa možeš platiti na licu mjesta ili na isti IBAN. Akontacija je nepovratna.": {en:"A €20 deposit confirms your registration. You can pay the remaining amount on site or to the same IBAN. The deposit is non-refundable.", de:"Mit einer Anzahlung von €20 bestätigst du deine Anmeldung. Den Restbetrag kannst du vor Ort oder auf dieselbe IBAN zahlen. Die Anzahlung ist nicht erstattbar."},
     "Poruka organizatoru (neobavezno)": {en:"Message to the organizer (optional)", de:"Nachricht an die Organisatorin (optional)"},
     "Pošalji prijavu za Dan 1": {en:"Send registration for Day 1", de:"Anmeldung für Tag 1 senden"},
