@@ -256,6 +256,21 @@ textarea{resize:vertical;min-height:90px;line-height:1.65}
 .submit-btn:hover{opacity:.87;transform:translateY(-1px)}
 .submit-btn:active{transform:scale(.99)}
 .submit-btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.alt-apply{
+  margin-top:1.1rem;border:.5px solid var(--teal-border);border-radius:10px;
+  background:var(--teal-dim);padding:13px 15px
+}
+.alt-apply-head{
+  font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#7fd0ea;
+  font-weight:600;margin-bottom:9px
+}
+.alt-apply-row{
+  display:flex;align-items:center;gap:9px;padding:7px 0;font-size:13.5px;
+  color:var(--text);text-decoration:none;border-top:.5px solid rgba(127,208,234,.15)
+}
+.alt-apply-row:first-of-type{border-top:none}
+.alt-apply-row span{color:#7fd0ea;font-weight:500}
+.alt-apply-row:hover span{text-decoration:underline}
 .footer-note{
   text-align:left;font-size:11.5px;color:rgba(255,255,255,.28);
   margin-top:1.2rem;line-height:1.8
@@ -490,6 +505,13 @@ textarea{resize:vertical;min-height:90px;line-height:1.65}
 
     <div id="d2-err" class="err-msg"></div>
     <button type="submit" class="submit-btn" id="d2-submit">Pošalji prijavu za Dan 2</button>
+
+    <div class="alt-apply">
+      <div class="alt-apply-head" id="t-alt2">Ili se prijavi izravno Nini</div>
+      <a class="alt-apply-row" href="tel:+385997593252">📞 <span>+385 99 759 3252</span></a>
+      <a class="alt-apply-row" href="mailto:studioheka04@gmail.com">✉️ <span>studioheka04@gmail.com</span></a>
+    </div>
+
     <p class="footer-note">
       Lokacija: <a href="https://maps.app.goo.gl/jgoRdk9KASaEKbfe7" target="_blank">Dvorana na Ravnicama, Zadar</a><br>
       Info: <a href="tel:0919203123">091 920 3123</a> · <a href="mailto:biljana.sare1@gmail.com">biljana.sare1@gmail.com</a>
@@ -806,6 +828,7 @@ document.getElementById('contact-form').addEventListener('submit', function(e){
     "Ples Duše – Dan 2 + vaše ime": {en:"Ples Duše – Day 2 + your name", de:"Ples Duše – Tag 2 + dein Name"},
     "Akontacija (nepovratna)": {en:"Deposit (non-refundable)", de:"Anzahlung (nicht erstattbar)"},
     "Cijena po osobi": {en:"Price per person", de:"Preis pro Person"},
+    "Ili se prijavi izravno Nini": {en:"Or register directly with Nina", de:"Oder melde dich direkt bei Nina an"},
     "Kopiraj": {en:"Copy", de:"Kopieren"},
     "Skeniraj za plaćanje u bankovnoj aplikaciji": {en:"Scan to pay in your banking app", de:"Zum Bezahlen in deiner Banking-App scannen"},
     "Otvori svoju mobilnu bankovnu aplikaciju, odaberi plaćanje skeniranjem i usmjeri kameru na barkod. Iznos i podaci se ispunjavaju automatski.": {en:"Open your mobile banking app, choose pay-by-scan and point the camera at the barcode. The amount and details fill in automatically.", de:"Öffne deine mobile Banking-App, wähle Zahlen-per-Scan und richte die Kamera auf den Barcode. Betrag und Daten werden automatisch ausgefüllt."},
