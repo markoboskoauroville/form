@@ -256,19 +256,28 @@ textarea{resize:vertical;min-height:90px;line-height:1.65}
 .submit-btn:hover{opacity:.87;transform:translateY(-1px)}
 .submit-btn:active{transform:scale(.99)}
 .submit-btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
-.alt-apply{
-  margin-top:1.1rem;border:.5px solid var(--teal-border);border-radius:10px;
-  background:var(--teal-dim);padding:13px 15px
+.two-ways{
+  margin-top:1rem;border:.5px solid var(--teal-border);border-radius:12px;
+  background:var(--teal-dim);padding:15px 16px
 }
-.alt-apply-head{
-  font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#7fd0ea;
-  font-weight:600;margin-bottom:9px
+.two-ways-head{
+  font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#7fd0ea;
+  font-weight:600;margin-bottom:13px;text-align:center
 }
+.two-ways-row{display:flex;gap:12px;align-items:flex-start;padding:10px 0}
+.two-ways-row+.two-ways-row{border-top:.5px solid rgba(127,208,234,.18)}
+.tw-num{
+  flex-shrink:0;width:24px;height:24px;border-radius:50%;background:rgba(127,208,234,.18);
+  border:.5px solid var(--teal-border);color:#7fd0ea;font-weight:700;font-size:13px;
+  display:flex;align-items:center;justify-content:center
+}
+.tw-body{flex:1}
+.tw-title{font-size:14px;font-weight:600;color:var(--gold);margin-bottom:2px}
+.tw-sub{font-size:12.5px;color:rgba(240,230,207,.7);line-height:1.55;margin-bottom:6px}
 .alt-apply-row{
-  display:flex;align-items:center;gap:9px;padding:7px 0;font-size:13.5px;
-  color:var(--text);text-decoration:none;border-top:.5px solid rgba(127,208,234,.15)
+  display:flex;align-items:center;gap:9px;padding:5px 0;font-size:13.5px;
+  color:var(--text);text-decoration:none
 }
-.alt-apply-row:first-of-type{border-top:none}
 .alt-apply-row span{color:#7fd0ea;font-weight:500}
 .alt-apply-row:hover span{text-decoration:underline}
 .footer-note{
@@ -465,6 +474,26 @@ textarea{resize:vertical;min-height:90px;line-height:1.65}
     <span class="price-tag regular">Norya • Nina Kraljić</span>
   </div>
 
+  <div class="two-ways">
+    <div class="two-ways-head" id="t-2ways">Dva načina prijave — odaberi što ti je lakše</div>
+    <div class="two-ways-row">
+      <span class="tw-num">1</span>
+      <div class="tw-body">
+        <div class="tw-title" id="t-2ways-a">Izravno Nini</div>
+        <div class="tw-sub" id="t-2ways-a-sub">Najbrže — javi se porukom ili pozivom i Nina te upiše.</div>
+        <a class="alt-apply-row" href="tel:+385997593252">📞 <span>+385 99 759 3252</span></a>
+        <a class="alt-apply-row" href="mailto:studioheka04@gmail.com">✉️ <span>studioheka04@gmail.com</span></a>
+      </div>
+    </div>
+    <div class="two-ways-row">
+      <span class="tw-num">2</span>
+      <div class="tw-body">
+        <div class="tw-title" id="t-2ways-b">Preko obrasca niže</div>
+        <div class="tw-sub" id="t-2ways-b-sub">Ispuni svoje podatke u obrascu ispod i pošalji prijavu.</div>
+      </div>
+    </div>
+  </div>
+
   <div id="form-day2-wrap">
   <form id="form-day2" novalidate>
 
@@ -505,12 +534,6 @@ textarea{resize:vertical;min-height:90px;line-height:1.65}
 
     <div id="d2-err" class="err-msg"></div>
     <button type="submit" class="submit-btn" id="d2-submit">Pošalji prijavu za Dan 2</button>
-
-    <div class="alt-apply">
-      <div class="alt-apply-head" id="t-alt2">Ili se prijavi izravno Nini</div>
-      <a class="alt-apply-row" href="tel:+385997593252">📞 <span>+385 99 759 3252</span></a>
-      <a class="alt-apply-row" href="mailto:studioheka04@gmail.com">✉️ <span>studioheka04@gmail.com</span></a>
-    </div>
 
     <p class="footer-note">
       Lokacija: <a href="https://maps.app.goo.gl/jgoRdk9KASaEKbfe7" target="_blank">Dvorana na Ravnicama, Zadar</a><br>
@@ -828,7 +851,11 @@ document.getElementById('contact-form').addEventListener('submit', function(e){
     "Ples Duše – Dan 2 + vaše ime": {en:"Ples Duše – Day 2 + your name", de:"Ples Duše – Tag 2 + dein Name"},
     "Akontacija (nepovratna)": {en:"Deposit (non-refundable)", de:"Anzahlung (nicht erstattbar)"},
     "Cijena po osobi": {en:"Price per person", de:"Preis pro Person"},
-    "Ili se prijavi izravno Nini": {en:"Or register directly with Nina", de:"Oder melde dich direkt bei Nina an"},
+    "Dva načina prijave — odaberi što ti je lakše": {en:"Two ways to register — choose what's easier for you", de:"Zwei Wege zur Anmeldung — wähle, was dir leichter fällt"},
+    "Izravno Nini": {en:"Directly with Nina", de:"Direkt bei Nina"},
+    "Najbrže — javi se porukom ili pozivom i Nina te upiše.": {en:"Fastest — send a message or call and Nina will register you.", de:"Am schnellsten — schreib oder ruf an und Nina trägt dich ein."},
+    "Preko obrasca niže": {en:"Through the form below", de:"Über das Formular unten"},
+    "Ispuni svoje podatke u obrascu ispod i pošalji prijavu.": {en:"Fill in your details in the form below and send your registration.", de:"Trage deine Daten im Formular unten ein und sende deine Anmeldung."},
     "Kopiraj": {en:"Copy", de:"Kopieren"},
     "Skeniraj za plaćanje u bankovnoj aplikaciji": {en:"Scan to pay in your banking app", de:"Zum Bezahlen in deiner Banking-App scannen"},
     "Otvori svoju mobilnu bankovnu aplikaciju, odaberi plaćanje skeniranjem i usmjeri kameru na barkod. Iznos i podaci se ispunjavaju automatski.": {en:"Open your mobile banking app, choose pay-by-scan and point the camera at the barcode. The amount and details fill in automatically.", de:"Öffne deine mobile Banking-App, wähle Zahlen-per-Scan und richte die Kamera auf den Barcode. Betrag und Daten werden automatisch ausgefüllt."},
