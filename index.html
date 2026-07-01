@@ -256,6 +256,29 @@ textarea{resize:vertical;min-height:90px;line-height:1.65}
 .submit-btn:hover{opacity:.87;transform:translateY(-1px)}
 .submit-btn:active{transform:scale(.99)}
 .submit-btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.nina-video{margin-bottom:1.4rem}
+.nv-frame{
+  position:relative;width:100%;max-width:300px;margin:0 auto;
+  aspect-ratio:9/16;border-radius:16px;overflow:hidden;
+  background:#070f0c;border:.5px solid var(--teal-border);
+  box-shadow:0 18px 50px rgba(0,0,0,.5)
+}
+.nv-frame video{width:100%;height:100%;object-fit:cover;display:block;background:#070f0c}
+.nv-play{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  width:66px;height:66px;border-radius:50%;border:none;cursor:pointer;
+  background:radial-gradient(circle at 50% 45%,#f2b75c,#d18a2e);
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 6px 24px rgba(0,0,0,.5),0 0 0 8px rgba(242,183,92,.15);
+  transition:transform .2s,opacity .25s
+}
+.nv-play svg{margin-left:3px}
+.nv-play:hover{transform:translate(-50%,-50%) scale(1.06)}
+.nv-play.hidden{opacity:0;pointer-events:none}
+.nv-text{margin-top:1.1rem}
+.nv-text p{font-size:13.5px;line-height:1.8;color:rgba(240,230,207,.82);margin-bottom:.7rem}
+.nv-text p strong{color:var(--gold);font-weight:600}
+.nv-close{font-style:italic;color:#7fd0ea !important;margin-bottom:0 !important}
 .two-ways{
   margin-top:1rem;border:.5px solid var(--teal-border);border-radius:12px;
   background:var(--teal-dim);padding:15px 16px
@@ -459,6 +482,24 @@ textarea{resize:vertical;min-height:90px;line-height:1.65}
 
 <!-- ═══════════════════════════════ DAY 2 ═══════════════════════════════ -->
 <div class="tab-panel" id="panel-day2">
+
+  <div class="nina-video">
+    <div class="nv-frame">
+      <video id="ninaVideo" playsinline preload="metadata" poster="" src="Nina.mp4"></video>
+      <button type="button" class="nv-play" id="ninaPlayBtn" aria-label="Play">
+        <svg viewBox="0 0 24 24" width="34" height="34"><path fill="#0a1411" d="M8 5v14l11-7z"/></svg>
+      </button>
+    </div>
+    <div class="nv-text">
+      <p><strong>Nina vas zove na Ples Duše.</strong></p>
+      <p>U ovom videu Norya, Nina Kraljić, otvara srce i poziva vas da nam se pridružite 11. i 12. srpnja u Zadru. Govori o danu koji se sprema, danu provedenom uz zvuk, prisutnost i povezivanje sa samim sobom i s grupom koja će se stvoriti u jednom sigurnom prostoru.</p>
+      <p>Ples Duše je susret bez riječi, tijelo govori, um se odmara.</p>
+      <p>U subotu 11. srpnja Biljana Šare vodi svjesni ples za oslobađanje kroz tijelo. Nakon toga Nina drži šamansku sound healing kupku, pa odlazak na plažicu odmah pored dvorane, more koje rashlađuje i opušta, a onda se opet vraćamo plesu. Marko Boško, DJ Mantra, pušta glazbu koja diše u valovima, i dan zatvaramo posebnim zvučnim putovanjem.</p>
+      <p>Za one koji žele doživjeti samo zvučnu kupku, dođite u nedjelju 12. srpnja, kada Nina drži dužu zvučnu meditaciju uz mnoštvo instrumenata i svoj glas. Dođeš, legneš, zatvoriš oči i dopustiš da te zvuk odvede tamo gdje te treba.</p>
+      <p>Mjesta su ograničena i zatvaramo prijave čim se popune. Do 1. srpnja vrijede niže cijene, iskoristite ih.</p>
+      <p class="nv-close">Vidimo se u krugu.</p>
+    </div>
+  </div>
 
   <div class="day-info">
     <div class="day-info-title">Nedjelja · 12. srpnja — Zvučna kupka</div>
@@ -674,6 +715,24 @@ textarea{resize:vertical;min-height:90px;line-height:1.65}
   audio.addEventListener('ended', setIcon);
   audio.addEventListener('pause', setIcon);
   audio.addEventListener('play', setIcon);
+})();
+</script>
+<script>
+(function(){
+  var v = document.getElementById('ninaVideo');
+  var pb = document.getElementById('ninaPlayBtn');
+  if(!v || !pb) return;
+  function playV(){
+    // pause hero music if it's playing, so audio doesn't overlap
+    var a = document.getElementById('hero-audio');
+    if(a && !a.paused){ a.pause(); }
+    v.play().catch(function(){});
+  }
+  pb.addEventListener('click', playV);
+  v.addEventListener('click', function(){ if(v.paused){ playV(); } else { v.pause(); } });
+  v.addEventListener('play', function(){ pb.classList.add('hidden'); v.setAttribute('controls',''); });
+  v.addEventListener('pause', function(){ pb.classList.remove('hidden'); });
+  v.addEventListener('ended', function(){ pb.classList.remove('hidden'); v.removeAttribute('controls'); v.currentTime=0; });
 })();
 </script>
 <script>
